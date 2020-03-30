@@ -1,7 +1,7 @@
 # project_java_planets
 Interaktywny układ planetarny
 
-Funkcjonalności  
+Funkcjonalności </br>
 1	GUI	10 pkt  	
 2	Program znajduje się repozytorium GIT	obowiązkowe  		
 3	Użycie GIT	4 pkt  	

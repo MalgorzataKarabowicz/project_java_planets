@@ -1,11 +1,11 @@
 # project_java_planets
 Interaktywny układ planetarny
 
-Funkcjonalności\\
-1	GUI	10 pkt	
-2	Program znajduje się repozytorium GIT	obowiązkowe		
-3	Użycie GIT	4 pkt	
-4	Poprawne zastosowanie teorii fizycznej do wykonywanych obliczeń	4 pkt	
+Funkcjonalności  
+1	GUI	10 pkt  	
+2	Program znajduje się repozytorium GIT	obowiązkowe  		
+3	Użycie GIT	4 pkt  	
+4	Poprawne zastosowanie teorii fizycznej do wykonywanych obliczeń	4 pkt  	
 5	Zapis i odczyt parametrów z pliku tekstowego	4 pkt	
 6	Płynna animacja ruchu planet	15 pkt	
 7	Działający przycisk ON/OFF	2 pkt	

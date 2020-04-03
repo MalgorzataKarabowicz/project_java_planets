@@ -5,8 +5,12 @@ import java.awt.*;
 
 public class SimulationMainPanel extends JPanel
 {
-    public SimulationMainPanel(){
-        this.setBackground(Color.DARK_GRAY);
+    Color simulationMainPanelColor = Color.DARK_GRAY;
+    public SimulationMainPanel()
+    {
+        //ChangeOptionsPanel changeOptionsPanel = new ChangeOptionsPanel();
+        //simulationMainPanelColor = changeOptionsPanel.backgroundColor;
+        this.setBackground(simulationMainPanelColor);
     }
 
 }

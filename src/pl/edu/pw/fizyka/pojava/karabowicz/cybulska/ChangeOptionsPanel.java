@@ -2,15 +2,19 @@ package pl.edu.pw.fizyka.pojava.karabowicz.cybulska;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
-public class ChangeOptionsPanel extends JPanel //Karabowicz
+public class ChangeOptionsPanel extends JPanel implements ActionListener //Karabowicz
 {
     JButton changeObjectColorButton, createObjectButton, drawOrbitsButton, onOfButton;
     JTextField massField, radiusField;
     JComboBox objectTypeChooser, backgroundColorChooser;
     JLabel objectLocationLabel;
     JRadioButton objectLocationRadiusChooser, objectLocationRandomChooser;
+    Color objectColor;
+    Color backgroundColor;
 
     public ChangeOptionsPanel()
     {
@@ -25,14 +29,14 @@ public class ChangeOptionsPanel extends JPanel //Karabowicz
         objectLocationLabel = new JLabel("Location of the object");
 
         massField = new JTextField("Mass [kg]");
-        radiusField = new JTextField("Radius [km]");
+        radiusField = new JTextField();
 
         String[] objectTypeList = {"Choose type of the object", "Planet", "Sun", "Moon"};
         objectTypeChooser = new JComboBox(objectTypeList);
-        String[] backgroundColorList = {"Choose background color", "Black", "Navy", "Gray", "White"};
+        String[] backgroundColorList = {"Choose background color", "Black", "Blue", "Gray", "White"};
         backgroundColorChooser = new JComboBox(backgroundColorList);
 
-        objectLocationRadiusChooser = new JRadioButton(); //miałam problem z dodaniem tutaj pola tekstowego
+        objectLocationRadiusChooser = new JRadioButton("Radius [km]");
         objectLocationRadiusChooser.setSelected(true);
         objectLocationRandomChooser = new JRadioButton("Place clicking the mouse");
 
@@ -59,6 +63,10 @@ public class ChangeOptionsPanel extends JPanel //Karabowicz
                                 .addPreferredGap(objectLocationLabel, objectLocationRadiusChooser, LayoutStyle.ComponentPlacement.INDENT)
                                         .addGroup(objectSettingsLayout.createParallelGroup()
                                                 .addComponent(objectLocationRadiusChooser)
+                                                    .addGroup(objectSettingsLayout.createSequentialGroup()
+                                                        .addPreferredGap(objectLocationRadiusChooser, radiusField, LayoutStyle.ComponentPlacement.INDENT)
+                                                            .addComponent(radiusField)
+                                                    )
                                                 .addComponent(objectLocationRandomChooser)
                                         )
                                 )
@@ -70,6 +78,7 @@ public class ChangeOptionsPanel extends JPanel //Karabowicz
                                 .addComponent(objectTypeChooser)
                                 .addComponent(objectLocationLabel)
                                 .addComponent(objectLocationRadiusChooser)
+                                .addComponent(radiusField)
                                 .addComponent(objectLocationRandomChooser)
                                 .addComponent(createObjectButton)
 
@@ -88,6 +97,26 @@ public class ChangeOptionsPanel extends JPanel //Karabowicz
         this.add(Box.createRigidArea(new Dimension(0, 20)));
         this.add(onOfButton);
         this.add(Box.createRigidArea(new Dimension(0, 250)));
+
+        //listeners
+        changeObjectColorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                objectColor = JColorChooser.showDialog(null, "Choose Object Color", Color.yellow);
+            }
+        });
+
+        //objectTypeChooser.addActionListener(objectTypeChooserListener);
+        //createObjectButton.addActionListener(createObjectButtonListener);
+        //backgroundColorChooser.addActionListener();
+        //drawOrbitsButton.addActionListener(drawOrbitsButtonListener);
+        //onOfButton.addActionListener(onOfButtonListener);
+
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+
+    }
 }

@@ -12,9 +12,10 @@ public class ChangeOptionsPanel extends JPanel implements ActionListener //Karab
     JTextField massField, radiusField;
     JComboBox objectTypeChooser, backgroundColorChooser;
     JLabel objectLocationLabel;
-    JRadioButton objectLocationRadiusChooser, objectLocationRandomChooser;
+    JRadioButton objectLocationRadiusChooser;
+    JRadioButton objectLocationRandomChooser;
     Color objectColor;
-    Color backgroundColor;
+    static Color backgroundColor;
 
     public ChangeOptionsPanel()
     {
@@ -33,8 +34,10 @@ public class ChangeOptionsPanel extends JPanel implements ActionListener //Karab
 
         String[] objectTypeList = {"Choose type of the object", "Planet", "Sun", "Moon"};
         objectTypeChooser = new JComboBox(objectTypeList);
-        String[] backgroundColorList = {"Choose background color", "Black", "Blue", "Gray", "White"};
+        objectTypeChooser.setSelectedIndex(0);
+        String[] backgroundColorList = {"Choose background color", "Black", "Dark Gray", "Light Gray", "White"};
         backgroundColorChooser = new JComboBox(backgroundColorList);
+        backgroundColorChooser.setSelectedIndex(0);
 
         objectLocationRadiusChooser = new JRadioButton("Radius [km]");
         objectLocationRadiusChooser.setSelected(true);
@@ -99,24 +102,45 @@ public class ChangeOptionsPanel extends JPanel implements ActionListener //Karab
         this.add(Box.createRigidArea(new Dimension(0, 250)));
 
         //listeners
-        changeObjectColorButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                objectColor = JColorChooser.showDialog(null, "Choose Object Color", Color.yellow);
-            }
-        });
+        changeObjectColorButton.addActionListener(e ->
+                objectColor = JColorChooser.showDialog(null, "Choose Object Color", Color.yellow)
+        );
 
         //objectTypeChooser.addActionListener(objectTypeChooserListener);
         //createObjectButton.addActionListener(createObjectButtonListener);
-        //backgroundColorChooser.addActionListener();
+        backgroundColorChooser.addActionListener(backgroundColorListener);
         //drawOrbitsButton.addActionListener(drawOrbitsButtonListener);
         //onOfButton.addActionListener(onOfButtonListener);
-
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-
+    public void actionPerformed(ActionEvent e)
+    {
 
     }
+
+    ActionListener backgroundColorListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int selected = ((JComboBox)e.getSource()).getSelectedIndex();
+            if (selected == 0) {
+                backgroundColor = Color.DARK_GRAY;
+                System.out.println("----test----");
+            }
+            else if (selected == 1) {
+                backgroundColor = Color.BLACK;
+                System.out.println("----test1---");
+            }
+            else if (selected == 2) {
+                backgroundColor = Color.DARK_GRAY;
+                System.out.println("---test2----");
+            }
+            else if (selected == 3)
+                backgroundColor = Color.GRAY;
+            else if (selected == 4)
+                backgroundColor = Color.WHITE;
+
+        }
+    };
+
 }

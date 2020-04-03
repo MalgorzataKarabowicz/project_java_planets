@@ -9,6 +9,7 @@ public class PlanetarySystemSimulatiomMainFrame extends JFrame
     {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setSize(900,600);
+        this.setTitle("Planetary System Simulation");
         this.setJMenuBar(new DropDownMenu());   //Rozwijane menu
 
         JPanel planetarySystemSimulationMainPanel = new JPanel(new BorderLayout());

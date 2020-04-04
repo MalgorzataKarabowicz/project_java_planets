@@ -1,5 +1,4 @@
-package pl.edu.pw.fizyka.pojava.karabowicz.cybulska;
-
+package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -58,32 +57,32 @@ public class ChangeOptionsPanel extends JPanel implements ActionListener //Karab
         objectSettingsLayout.linkSize(SwingConstants.HORIZONTAL, changeObjectColorButton, massField, objectTypeChooser, createObjectButton);
 
         objectSettingsLayout.setHorizontalGroup(objectSettingsLayout.createParallelGroup()
-                                .addComponent(changeObjectColorButton)
-                                .addComponent(massField)
-                                .addComponent(objectTypeChooser)
-                                .addComponent(objectLocationLabel)
+                .addComponent(changeObjectColorButton)
+                .addComponent(massField)
+                .addComponent(objectTypeChooser)
+                .addComponent(objectLocationLabel)
+                .addGroup(objectSettingsLayout.createSequentialGroup()
+                        .addPreferredGap(objectLocationLabel, objectLocationRadiusChooser, LayoutStyle.ComponentPlacement.INDENT)
+                        .addGroup(objectSettingsLayout.createParallelGroup()
+                                .addComponent(objectLocationRadiusChooser)
                                 .addGroup(objectSettingsLayout.createSequentialGroup()
-                                .addPreferredGap(objectLocationLabel, objectLocationRadiusChooser, LayoutStyle.ComponentPlacement.INDENT)
-                                        .addGroup(objectSettingsLayout.createParallelGroup()
-                                                .addComponent(objectLocationRadiusChooser)
-                                                    .addGroup(objectSettingsLayout.createSequentialGroup()
-                                                        .addPreferredGap(objectLocationRadiusChooser, radiusField, LayoutStyle.ComponentPlacement.INDENT)
-                                                            .addComponent(radiusField)
-                                                    )
-                                                .addComponent(objectLocationRandomChooser)
-                                        )
+                                        .addPreferredGap(objectLocationRadiusChooser, radiusField, LayoutStyle.ComponentPlacement.INDENT)
+                                        .addComponent(radiusField)
                                 )
-                                .addComponent(createObjectButton)
+                                .addComponent(objectLocationRandomChooser)
+                        )
+                )
+                .addComponent(createObjectButton)
         );
         objectSettingsLayout.setVerticalGroup(objectSettingsLayout.createSequentialGroup()
-                                .addComponent(changeObjectColorButton)
-                                .addComponent(massField)
-                                .addComponent(objectTypeChooser)
-                                .addComponent(objectLocationLabel)
-                                .addComponent(objectLocationRadiusChooser)
-                                .addComponent(radiusField)
-                                .addComponent(objectLocationRandomChooser)
-                                .addComponent(createObjectButton)
+                .addComponent(changeObjectColorButton)
+                .addComponent(massField)
+                .addComponent(objectTypeChooser)
+                .addComponent(objectLocationLabel)
+                .addComponent(objectLocationRadiusChooser)
+                .addComponent(radiusField)
+                .addComponent(objectLocationRandomChooser)
+                .addComponent(createObjectButton)
 
         );
 

@@ -1,11 +1,13 @@
-package pl.edu.pw.fizyka.pojava.karabowicz.cybulska;
+package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.gui;
+
+import pl.edu.pw.fizyka.pojava.karabowicz.cybulska.simulation.SimulationMainPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class PlanetarySystemSimulatiomMainFrame extends JFrame
+public class PlanetarySystemSimulationMainFrame extends JFrame
 {
-    PlanetarySystemSimulatiomMainFrame()
+    PlanetarySystemSimulationMainFrame()
     {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setSize(900,600);
@@ -21,7 +23,7 @@ public class PlanetarySystemSimulatiomMainFrame extends JFrame
 
     public static void main(String[] args)
     {
-        PlanetarySystemSimulatiomMainFrame mainFrame = new PlanetarySystemSimulatiomMainFrame();
+        PlanetarySystemSimulationMainFrame mainFrame = new PlanetarySystemSimulationMainFrame();
         mainFrame.setVisible(true);
     }
 }

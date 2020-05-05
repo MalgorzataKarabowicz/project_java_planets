@@ -3,11 +3,10 @@ package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.SwingUtilities;
-
 //Cybulska
-public class KeyMenager implements KeyListener
+public class KeyManager implements KeyListener
 {
+
     private boolean[] keys;
     public boolean up, down, left, right;
     public boolean holding, released;
@@ -37,4 +36,6 @@ public class KeyMenager implements KeyListener
     {
         keys[e.getKeyCode()]=false;
     }
+
+
 }

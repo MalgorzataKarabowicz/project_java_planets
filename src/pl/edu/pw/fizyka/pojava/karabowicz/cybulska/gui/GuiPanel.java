@@ -1,34 +1,47 @@
 package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.gui;
+import pl.edu.pw.fizyka.pojava.karabowicz.cybulska.simulation.SimulationMainPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 
-public class ChangeOptionsPanel extends JPanel implements ActionListener //Karabowicz
+public class GuiPanel extends JPanel implements ActionListener //Karabowicz
 {
-    JButton changeObjectColorButton, createObjectButton, drawOrbitsButton, onOfButton;
+    JButton changeObjectColorButton, createObjectButton, drawOrbitsButton;
+    JToggleButton onOfButton;
     JTextField massField, radiusField;
     JComboBox objectTypeChooser, backgroundColorChooser;
-    JLabel objectLocationLabel;
+    JLabel objectLocationLabel, massLabel;
     JRadioButton objectLocationRadiusChooser;
     JRadioButton objectLocationRandomChooser;
-    Color objectColor;
-    static Color backgroundColor;
+    Color objectColor, backgroundColor;
 
-    public ChangeOptionsPanel()
+    private static SimulationMainPanel simulationMainPanel;
+
+    public GuiPanel()
     {
-        BoxLayout changeOptionsPanelLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        this.setLayout(changeOptionsPanelLayout);
+        this.setLayout(new BorderLayout());
+
+        simulationMainPanel = new SimulationMainPanel();
+        simulationMainPanel.setBackground(Color.DARK_GRAY);
+
+        JPanel changeOptionsPanel = new JPanel();
+        BoxLayout changeOptionsPanelLayout = new BoxLayout(changeOptionsPanel, BoxLayout.Y_AXIS);
+        changeOptionsPanel.setLayout(changeOptionsPanelLayout);
 
         changeObjectColorButton = new JButton("Change Color");
         createObjectButton = new JButton("Create object");
         drawOrbitsButton = new JButton("Draw orbits");
-        onOfButton = new JButton("ON/OFF");
+        onOfButton = new JToggleButton("ON/OFF");
 
         objectLocationLabel = new JLabel("Location of the object");
+        massLabel = new JLabel("Mass [in units of Earth mass]");
 
-        massField = new JTextField("Mass [kg]");
+        massField = new JTextField();
         radiusField = new JTextField();
 
         String[] objectTypeList = {"Choose type of the object", "Planet", "Sun", "Moon"};
@@ -58,6 +71,7 @@ public class ChangeOptionsPanel extends JPanel implements ActionListener //Karab
 
         objectSettingsLayout.setHorizontalGroup(objectSettingsLayout.createParallelGroup()
                 .addComponent(changeObjectColorButton)
+                .addComponent(massLabel)
                 .addComponent(massField)
                 .addComponent(objectTypeChooser)
                 .addComponent(objectLocationLabel)
@@ -76,6 +90,7 @@ public class ChangeOptionsPanel extends JPanel implements ActionListener //Karab
         );
         objectSettingsLayout.setVerticalGroup(objectSettingsLayout.createSequentialGroup()
                 .addComponent(changeObjectColorButton)
+                .addComponent(massLabel)
                 .addComponent(massField)
                 .addComponent(objectTypeChooser)
                 .addComponent(objectLocationLabel)
@@ -90,55 +105,77 @@ public class ChangeOptionsPanel extends JPanel implements ActionListener //Karab
         drawOrbitsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         onOfButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
-        this.add(objectSettingsPanel);
-        this.add(Box.createRigidArea(new Dimension(0, 50)));
-        this.add(backgroundColorChooser);
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
-        this.add(drawOrbitsButton);
-        this.add(Box.createRigidArea(new Dimension(0, 20)));
-        this.add(onOfButton);
-        this.add(Box.createRigidArea(new Dimension(0, 250)));
+        changeOptionsPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        changeOptionsPanel.add(objectSettingsPanel);
+        changeOptionsPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+        changeOptionsPanel.add(backgroundColorChooser);
+        changeOptionsPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        changeOptionsPanel.add(drawOrbitsButton);
+        changeOptionsPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        changeOptionsPanel.add(onOfButton);
+        changeOptionsPanel.add(Box.createRigidArea(new Dimension(0, 250)));
+
+        this.add(changeOptionsPanel, BorderLayout.LINE_END);
+        this.add(simulationMainPanel, BorderLayout.CENTER);
 
         //listeners
         changeObjectColorButton.addActionListener(e ->
                 objectColor = JColorChooser.showDialog(null, "Choose Object Color", Color.yellow)
         );
 
+
+
         //objectTypeChooser.addActionListener(objectTypeChooserListener);
         //createObjectButton.addActionListener(createObjectButtonListener);
         backgroundColorChooser.addActionListener(backgroundColorListener);
         //drawOrbitsButton.addActionListener(drawOrbitsButtonListener);
-        //onOfButton.addActionListener(onOfButtonListener);
+        onOfButton.addItemListener(onOfItemListener);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e)
-    {
+    public void actionPerformed(ActionEvent e) {}
 
-    }
+    public void start() {simulationMainPanel.start();}
+    public void stop() {simulationMainPanel.stop();}
+
+    ItemListener onOfItemListener = new ItemListener() {
+        public void itemStateChanged(ItemEvent itemEvent)
+        {
+            int state = itemEvent.getStateChange();
+            if (state == ItemEvent.SELECTED)
+            {
+                stop();
+                System.out.println("Selected");
+            }
+            else
+            {
+                start();
+                System.out.println("Deselected");
+            }
+        }
+    };
 
     ActionListener backgroundColorListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             int selected = ((JComboBox)e.getSource()).getSelectedIndex();
             if (selected == 0) {
-                backgroundColor = Color.DARK_GRAY;
-                System.out.println("----test----");
+                simulationMainPanel.setBackground(Color.DARK_GRAY);
             }
             else if (selected == 1) {
-                backgroundColor = Color.BLACK;
+                simulationMainPanel.setBackground(Color.BLACK);
                 System.out.println("----test1---");
             }
             else if (selected == 2) {
-                backgroundColor = Color.DARK_GRAY;
+                simulationMainPanel.setBackground(Color.DARK_GRAY);
                 System.out.println("---test2----");
             }
-            else if (selected == 3)
-                backgroundColor = Color.GRAY;
-            else if (selected == 4)
-                backgroundColor = Color.WHITE;
-
+            else if (selected == 3) {
+                simulationMainPanel.setBackground(Color.GRAY);
+            }
+            else if (selected == 4) {
+                simulationMainPanel.setBackground(Color.WHITE);
+            }
         }
     };
 

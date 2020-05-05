@@ -1,28 +1,36 @@
 package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.simulation;
 
-import pl.edu.pw.fizyka.pojava.karabowicz.cybulska.input.KeyMenager;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+/*
+plansza do rysowania
+ */
 
-public class SimulationMainPanel extends JPanel
+public class SimulationMainPanel extends JPanel implements ActionListener
 {
-    Color simulationMainPanelColor = Color.DARK_GRAY;
+    private Timer animationTimer;
+    public static final int delay = 10; //ms
+
     public SimulationMainPanel()
     {
-        this.setBackground(simulationMainPanelColor);
+        super();
+
+
+        animationTimer = new Timer(delay,this);
+        animationTimer.start();
     }
 
+    //Rozpoczęcie animacji
+    public void start() {animationTimer.start();}
+    //zatrzymanie animacji
+    public void stop() {animationTimer.stop();}
 
-    //pomocnicze
-    public void paintComponent(Graphics g)
-    {
-        g.setColor(Color.DARK_GRAY);
-        g.fillRect(0,0,1000,1000);
-        g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(200,200,10,10);
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
-
-
 }

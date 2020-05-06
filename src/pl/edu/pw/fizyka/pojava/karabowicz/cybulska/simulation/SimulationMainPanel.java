@@ -1,7 +1,6 @@
 package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.simulation;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,6 +21,7 @@ public class SimulationMainPanel extends JPanel implements ActionListener
         animationTimer = new Timer(delay,this);
         animationTimer.start();
     }
+
 
     //Rozpoczęcie animacji
     public void start() {animationTimer.start();}

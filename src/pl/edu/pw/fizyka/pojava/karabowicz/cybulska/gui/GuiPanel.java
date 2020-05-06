@@ -18,7 +18,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
     JLabel objectLocationLabel, massLabel;
     JRadioButton objectLocationRadiusChooser;
     JRadioButton objectLocationRandomChooser;
-    Color objectColor, backgroundColor;
+    Color objectColor;
 
     private static SimulationMainPanel simulationMainPanel;
 

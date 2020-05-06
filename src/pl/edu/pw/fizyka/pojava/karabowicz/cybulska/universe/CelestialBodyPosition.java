@@ -4,10 +4,20 @@ package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.universe;
 Pozycja danego obiektu
  */
 
-public class CelestialBodyPosition
+/**
+ * ta klasa jest już OK
+ */
+
+public class CelestialBodyPosition //Karabowicz
 {
     private int x;
     private int y;
+
+    CelestialBodyPosition()
+    {
+        this.x = 0;
+        this.y = 0;
+    }
 
    CelestialBodyPosition(int x, int y){
         this.x=x;

@@ -6,12 +6,10 @@ public class Planet extends CelestialBodyOrbit
 {
     private int numOrbits = 0;
 
-    public Planet(CelestialBodyPosition orbitCentre, int orbitRadius, double orbitTime, Color colour, double mass, int size)
-    {
+    Planet(CelestialBodyPosition orbitCentre, int orbitRadius, double orbitTime, Color colour, int size) {
         super();
         this.colour = colour;
         this.size = size;
-        this.mass = mass;
         this.orbitCentre = orbitCentre;
         this.orbitRadius = orbitRadius;
         this.orbitPeriod = orbitTime;

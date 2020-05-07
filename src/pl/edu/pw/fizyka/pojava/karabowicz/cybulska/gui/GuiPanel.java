@@ -1,7 +1,5 @@
 package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.gui;
 import pl.edu.pw.fizyka.pojava.karabowicz.cybulska.simulation.SimulationMainPanel;
-import pl.edu.pw.fizyka.pojava.karabowicz.cybulska.universe.CelestialBodyPosition;
-import pl.edu.pw.fizyka.pojava.karabowicz.cybulska.universe.Planet;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
 
 
 public class GuiPanel extends JPanel implements ActionListener //Karabowicz
@@ -21,19 +18,12 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
     JLabel objectLocationLabel, massLabel;
     JRadioButton objectLocationRadiusChooser;
     JRadioButton objectLocationRandomChooser;
-
-    public ArrayList<Planet> planetArrayList;
-
-    Color choosenObjectColor;
-    String choosenObject;
-
+    Color objectColor;
 
     private static SimulationMainPanel simulationMainPanel;
 
     public GuiPanel()
     {
-        planetArrayList = new ArrayList<>();
-
         this.setLayout(new BorderLayout());
 
         simulationMainPanel = new SimulationMainPanel();
@@ -51,13 +41,12 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         objectLocationLabel = new JLabel("Location of the object");
         massLabel = new JLabel("Mass [in units of Earth mass]");
 
-        massField = new JTextField("2.5");
-        radiusField = new JTextField("15");
+        massField = new JTextField();
+        radiusField = new JTextField();
 
         String[] objectTypeList = {"Choose type of the object", "Planet", "Sun", "Moon"};
         objectTypeChooser = new JComboBox(objectTypeList);
         objectTypeChooser.setSelectedIndex(0);
-        choosenObject="!";
         String[] backgroundColorList = {"Choose background color", "Black", "Dark Gray", "Light Gray", "White"};
         backgroundColorChooser = new JComboBox(backgroundColorList);
         backgroundColorChooser.setSelectedIndex(0);
@@ -98,8 +87,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                         )
                 )
                 .addComponent(createObjectButton)
-                );
-
+        );
         objectSettingsLayout.setVerticalGroup(objectSettingsLayout.createSequentialGroup()
                 .addComponent(changeObjectColorButton)
                 .addComponent(massLabel)
@@ -110,7 +98,8 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 .addComponent(radiusField)
                 .addComponent(objectLocationRandomChooser)
                 .addComponent(createObjectButton)
-                );
+
+        );
 
         backgroundColorChooser.setAlignmentX(Component.CENTER_ALIGNMENT);
         drawOrbitsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -130,14 +119,15 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         this.add(simulationMainPanel, BorderLayout.CENTER);
 
         //listeners
-        changeObjectColorButton.addActionListener
-                ( e -> choosenObjectColor = JColorChooser.showDialog(null, "Choose Object Color", Color.yellow) );
+        changeObjectColorButton.addActionListener(e ->
+                objectColor = JColorChooser.showDialog(null, "Choose Object Color", Color.yellow)
+        );
 
 
 
+        //objectTypeChooser.addActionListener(objectTypeChooserListener);
+        //createObjectButton.addActionListener(createObjectButtonListener);
         backgroundColorChooser.addActionListener(backgroundColorListener);
-        objectTypeChooser.addActionListener(objectTypeChooserListener);
-        createObjectButton.addActionListener(createObjectButtonListener);
         //drawOrbitsButton.addActionListener(drawOrbitsButtonListener);
         onOfButton.addItemListener(onOfItemListener);
     }
@@ -148,8 +138,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
     public void start() {simulationMainPanel.start();}
     public void stop() {simulationMainPanel.stop();}
 
-    ItemListener onOfItemListener = new ItemListener()
-    {
+    ItemListener onOfItemListener = new ItemListener() {
         public void itemStateChanged(ItemEvent itemEvent)
         {
             int state = itemEvent.getStateChange();
@@ -166,11 +155,9 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         }
     };
 
-    ActionListener backgroundColorListener = new ActionListener()
-    {
+    ActionListener backgroundColorListener = new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent e)
-        {
+        public void actionPerformed(ActionEvent e) {
             int selected = ((JComboBox)e.getSource()).getSelectedIndex();
             if (selected == 0) {
                 simulationMainPanel.setBackground(Color.DARK_GRAY);
@@ -191,85 +178,5 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
             }
         }
     };
-//Cybulska
-    ActionListener objectTypeChooserListener = new ActionListener()
-    {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            int selected = ((JComboBox)e.getSource()).getSelectedIndex();
-            if (selected == 0) { choosenObject="!"; }
-            else if (selected == 1)
-            {
-                choosenObject = "Planet";
-                System.out.println("----planeta---");
-            }
-            else if (selected == 2)
-            {
-                choosenObject ="Sun";
-                System.out.println("---slonce----");
-            }
-            else if (selected == 3)
-            {
-                choosenObject ="Moon";
-                System.out.println("---ksiezyc----");
-            }
-
-        }
-    };
-
-    ActionListener createObjectButtonListener = new ActionListener()
-    {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            double mass, radius;
-            CelestialBodyPosition center;
-
-            try
-            {
-                mass = Double.parseDouble(massField.getText() ); //masa
-                System.out.println("Masa: "+mass);
-
-                if(objectLocationRadiusChooser.isSelected()) { radius = Double.parseDouble(radiusField.getText() ); } //promien
-                else { radius = 30.5; } // Promien przy kliknieciu myszka
-                System.out.println("Promien: "+radius);
-
-                //Polozenie srodka
-                if(objectLocationRandomChooser.isSelected()) { center = new CelestialBodyPosition(50,50); } //Wybor na podstawie klikniecia do zmiany !!!!!!!!!!!!!
-
-                else { center = new CelestialBodyPosition(450, 300); }
-                System.out.println("Srodek: "+center.getX()+" "+center.getY() );
-
-                if(choosenObject=="!")
-                {
-                    System.out.println("Nie wybrano obiektu!");
-                    JOptionPane.showMessageDialog (null,"Choose object type.","Not choosen type of object.",JOptionPane.ERROR_MESSAGE );
-                }
-                if(choosenObject=="Planet")
-                {
-                    planetArrayList.add(new Planet(center,(int)radius,3000,choosenObjectColor,mass,20));
-                    System.out.println("Pomyślnie dodano planete!!!");
-                }
-                if(choosenObject=="Sun")
-                {
-                    planetArrayList.add(new Planet(center,(int)radius,3000,choosenObjectColor,mass,80));
-                    System.out.println("Pomyślnie dodano slonce!!!");
-                }
-                if(choosenObject=="Moon")
-                {
-                    planetArrayList.add(new Planet(center,(int)radius,3000,choosenObjectColor,mass,8));
-                    System.out.println("Pomyślnie dodano ksiezyc!!!");
-                }
-            }
-            catch (NumberFormatException ex)
-            {
-                System.out.println("Wrong options!");
-                JOptionPane.showMessageDialog (null,"Choose all correct settings.","Incorrect settings of new object.",JOptionPane.ERROR_MESSAGE );
-            }
-
-        }
-    };
-
 
 }

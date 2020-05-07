@@ -9,7 +9,6 @@ public abstract class CelestialBody
     protected double orbitPeriod; // orbit period of object
     protected Color colour; // colour of object on animation panel
     protected int size; // size of object on animation panel
-    protected double mass; //mass of object
 
     protected int size(){return this.size;};
     protected Color colour(){return this.colour;};

@@ -19,7 +19,7 @@ public class CelestialBodyPosition //Karabowicz
         this.y = 0;
     }
 
-   public CelestialBodyPosition(int x, int y){
+   CelestialBodyPosition(int x, int y){
         this.x=x;
         this.y=y;
     }

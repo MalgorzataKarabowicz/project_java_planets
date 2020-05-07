@@ -3,7 +3,7 @@ package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.simulation;
 
 public class MoveSimulationPanel
 {
- /*   private SimulationMainPanel simulationMainPanel;
+   /* private SimulationMainPanel simulationMainPanel;
     private float x, y; //actual position in space
     private float dispX, dispY; //where its drawn at on screen
 
@@ -27,6 +27,6 @@ public class MoveSimulationPanel
             handler.getCamera().move(-10, 0);
         if (handler.getKeyManager().right && !handler.getKeyManager().left)
             handler.getCamera().move(10, 0);
-    }
-*/
+    }*/
+
 }

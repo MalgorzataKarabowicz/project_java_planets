@@ -4,6 +4,8 @@ import pl.edu.pw.fizyka.pojava.karabowicz.cybulska.gui.GuiPanel;
 
 import javax.swing.*;
 
+//to chyba nie jest potrzebne -> nie potrzebujemy Appleta
+
 public class SimulationApplet extends JApplet
 {
     private GuiPanel guiPanel;

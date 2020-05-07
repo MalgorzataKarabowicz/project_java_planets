@@ -22,19 +22,22 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
     JRadioButton objectLocationRadiusChooser;
     JRadioButton objectLocationRandomChooser;
 
-    public ArrayList<Planet> planetArrayList;
+    public static ArrayList<Planet> planetArrayList; //lista przechowująca planety
 
     Color choosenObjectColor;
     String choosenObject;
+
+    CelestialBodyPosition centerPosition; //położenie środka (tam gdzie chcemy umieścić słońce)
 
 
     private static SimulationMainPanel simulationMainPanel;
 
     public GuiPanel()
     {
-        planetArrayList = new ArrayList<>();
-
         this.setLayout(new BorderLayout());
+
+        planetArrayList = new ArrayList<>();
+        centerPosition = new CelestialBodyPosition(275, 275);
 
         simulationMainPanel = new SimulationMainPanel();
         simulationMainPanel.setBackground(Color.DARK_GRAY);
@@ -62,7 +65,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         backgroundColorChooser = new JComboBox(backgroundColorList);
         backgroundColorChooser.setSelectedIndex(0);
 
-        objectLocationRadiusChooser = new JRadioButton("Radius [km]");
+        objectLocationRadiusChooser = new JRadioButton("Radius [AU]");
         objectLocationRadiusChooser.setSelected(true);
         objectLocationRandomChooser = new JRadioButton("Place clicking the mouse");
 
@@ -134,12 +137,17 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 ( e -> choosenObjectColor = JColorChooser.showDialog(null, "Choose Object Color", Color.yellow) );
 
 
-
         backgroundColorChooser.addActionListener(backgroundColorListener);
         objectTypeChooser.addActionListener(objectTypeChooserListener);
         createObjectButton.addActionListener(createObjectButtonListener);
         //drawOrbitsButton.addActionListener(drawOrbitsButtonListener);
         onOfButton.addItemListener(onOfItemListener);
+
+        /**
+         * potrzebny listener do klikania na planszy z symulacją
+         */
+
+
     }
 
     @Override
@@ -191,8 +199,8 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
             }
         }
     };
-//Cybulska
-    ActionListener objectTypeChooserListener = new ActionListener()
+
+    ActionListener objectTypeChooserListener = new ActionListener() //Cybulska
     {
         @Override
         public void actionPerformed(ActionEvent e)
@@ -218,7 +226,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         }
     };
 
-    ActionListener createObjectButtonListener = new ActionListener()
+    ActionListener createObjectButtonListener = new ActionListener() //Cybulska
     {
         @Override
         public void actionPerformed(ActionEvent e)
@@ -236,7 +244,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 System.out.println("Promien: "+radius);
 
                 //Polozenie srodka
-                if(objectLocationRandomChooser.isSelected()) { center = new CelestialBodyPosition(50,50); } //Wybor na podstawie klikniecia do zmiany !!!!!!!!!!!!!
+                if(objectLocationRandomChooser.isSelected()) { center = new CelestialBodyPosition(50,50); } //Wybor na podstawie klikniecia -> do zmiany !!!!!!!!!!!!!
 
                 else { center = new CelestialBodyPosition(450, 300); }
                 System.out.println("Srodek: "+center.getX()+" "+center.getY() );
@@ -255,11 +263,24 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 }
                 if(choosenObject=="Sun")
                 {
-                    planetArrayList.add(new Planet(center,(int)radius,3000,choosenObjectColor,mass,80));
+                    /**
+                     * Notes:
+                     * Ja bym nie dodawała słońca do listy, tylko zapisasła jakoś oddzielnie
+                     * + położenie słońca jest "generowane" automatycznie -> np. środek planszy
+                     * + można dodać tylko jedno słońce
+                     * + użytkownik ma wpływ tylko na masę słońca
+                     */
+                    planetArrayList.add(new Planet(centerPosition, (int)radius,3000,choosenObjectColor,mass,80));
                     System.out.println("Pomyślnie dodano slonce!!!");
+
                 }
                 if(choosenObject=="Moon")
                 {
+                    /**
+                     * Notes:
+                     * Księżyc można dodoać tylko do ostatnio dodanej planety???
+                     * -> wtedy po dodaniu kolejnej nie ma możliwości dodawania książyców do poprzedniej
+                     */
                     planetArrayList.add(new Planet(center,(int)radius,3000,choosenObjectColor,mass,8));
                     System.out.println("Pomyślnie dodano ksiezyc!!!");
                 }

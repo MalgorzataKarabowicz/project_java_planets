@@ -1,10 +1,13 @@
 package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.universe;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Planet extends CelestialBodyOrbit
 {
     private int numOrbits = 0;
+
+    private ArrayList<Moon> moons;
 
     public Planet(CelestialBodyPosition orbitCentre, int orbitRadius, double orbitTime, Color colour, double mass, int size)
     {
@@ -25,7 +28,7 @@ public class Planet extends CelestialBodyOrbit
         updatePosition();
         return this.position;
     }
-    /* Calculate new position */
+    //Nowa pozycja -> obliczenie
     private void updatePosition() {
 
         this.orbitAngle += delta;

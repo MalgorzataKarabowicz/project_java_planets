@@ -241,6 +241,8 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 else { center = new CelestialBodyPosition(450, 300); }
                 System.out.println("Srodek: "+center.getX()+" "+center.getY() );
 
+
+                //Tworzenie obiektu
                 if(choosenObject=="!")
                 {
                     System.out.println("Nie wybrano obiektu!");

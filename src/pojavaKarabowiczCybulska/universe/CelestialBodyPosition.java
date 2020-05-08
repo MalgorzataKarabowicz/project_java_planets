@@ -1,4 +1,4 @@
-package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.universe;
+package pojavaKarabowiczCybulska.universe;
 
 /*
 Pozycja danego obiektu

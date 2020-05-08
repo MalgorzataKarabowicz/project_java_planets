@@ -1,4 +1,7 @@
-package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.universe;
+package pojavaKarabowiczCybulska.universe;
+
+import pojavaKarabowiczCybulska.universe.CelestialBodyOrbit;
+import pojavaKarabowiczCybulska.universe.CelestialBodyPosition;
 
 import java.awt.*;
 import java.util.ArrayList;

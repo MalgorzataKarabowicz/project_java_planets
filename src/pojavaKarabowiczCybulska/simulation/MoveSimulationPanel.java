@@ -1,4 +1,4 @@
-package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.simulation;
+package pojavaKarabowiczCybulska.simulation;
 
 
 public class MoveSimulationPanel

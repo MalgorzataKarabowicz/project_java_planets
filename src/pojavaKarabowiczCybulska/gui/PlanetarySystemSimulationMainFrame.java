@@ -1,4 +1,4 @@
-package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.gui;
+package pojavaKarabowiczCybulska.gui;
 
 
 

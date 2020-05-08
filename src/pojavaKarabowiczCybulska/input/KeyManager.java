@@ -1,4 +1,4 @@
-package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.input;
+package pojavaKarabowiczCybulska.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

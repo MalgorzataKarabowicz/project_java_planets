@@ -1,6 +1,6 @@
-package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.simulation;
+package pojavaKarabowiczCybulska.simulation;
 
-import pl.edu.pw.fizyka.pojava.karabowicz.cybulska.universe.Planet;
+import pojavaKarabowiczCybulska.universe.Planet;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import static pl.edu.pw.fizyka.pojava.karabowicz.cybulska.gui.GuiPanel.planetArrayList;
+import static pojavaKarabowiczCybulska.gui.GuiPanel.planetArrayList;
 
 /*
 plansza do rysowania

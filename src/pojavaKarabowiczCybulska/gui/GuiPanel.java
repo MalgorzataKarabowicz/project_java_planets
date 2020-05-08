@@ -1,7 +1,7 @@
-package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.gui;
-import pl.edu.pw.fizyka.pojava.karabowicz.cybulska.simulation.SimulationMainPanel;
-import pl.edu.pw.fizyka.pojava.karabowicz.cybulska.universe.CelestialBodyPosition;
-import pl.edu.pw.fizyka.pojava.karabowicz.cybulska.universe.Planet;
+package pojavaKarabowiczCybulska.gui;
+import pojavaKarabowiczCybulska.simulation.SimulationMainPanel;
+import pojavaKarabowiczCybulska.universe.CelestialBodyPosition;
+import pojavaKarabowiczCybulska.universe.Planet;
 
 import javax.swing.*;
 import java.awt.*;

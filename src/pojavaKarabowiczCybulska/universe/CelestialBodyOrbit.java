@@ -1,4 +1,4 @@
-package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.universe;
+package pojavaKarabowiczCybulska.universe;
 
 public abstract class CelestialBodyOrbit extends CelestialBody
 {

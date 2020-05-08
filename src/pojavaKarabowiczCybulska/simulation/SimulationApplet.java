@@ -1,6 +1,6 @@
-package pl.edu.pw.fizyka.pojava.karabowicz.cybulska.simulation;
+package pojavaKarabowiczCybulska.simulation;
 
-import pl.edu.pw.fizyka.pojava.karabowicz.cybulska.gui.GuiPanel;
+import pojavaKarabowiczCybulska.gui.GuiPanel;
 
 import javax.swing.*;
 

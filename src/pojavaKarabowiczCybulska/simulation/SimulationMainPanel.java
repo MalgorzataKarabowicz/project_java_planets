@@ -20,7 +20,6 @@ public class SimulationMainPanel extends JPanel implements ActionListener
     public static final int delay = 10; //ms
 
 
-
     public SimulationMainPanel()
     {
         super();

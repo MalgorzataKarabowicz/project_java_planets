@@ -5,10 +5,7 @@ import pojavaKarabowiczCybulska.universe.Planet;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 
@@ -26,6 +23,8 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
 
     Color choosenObjectColor;
     String choosenObject;
+    Planet sun;
+    CelestialBodyPosition mouseClick;
 
     CelestialBodyPosition centerPosition; //położenie środka (tam gdzie chcemy umieścić słońce)
 
@@ -142,7 +141,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         createObjectButton.addActionListener(createObjectButtonListener);
         //drawOrbitsButton.addActionListener(drawOrbitsButtonListener);
         onOfButton.addItemListener(onOfItemListener);
-
+        simulationMainPanel.addMouseListener(mouseClickListener);
         /**
          * potrzebny listener do klikania na planszy z symulacją
          */
@@ -198,6 +197,45 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 simulationMainPanel.setBackground(Color.WHITE);
             }
         }
+    };
+
+    /**
+     * Ta funkcja jest jeszcze do przemyslenia
+     * bo
+     * 1    mozna zrobić to tak, że bedzie dodawało obiekt w momencie kliknięcia
+     * i wtedy będziemy miały dwa powtarzające się fragmenty kodu
+     * (lub się ten fragment po prostu do funkcji wrzuci i sie bedzie ja wywolywac)
+     * i będzie trzeba pamiętać o słońcu i księżycach
+     *
+     * 2    można czekać na kliknięcie przycisku i wtedy bez wiekszych problemów
+     * tylko będzie trzeba poinformować uzytkownika
+     *
+     */
+    MouseListener mouseClickListener = new MouseListener()
+    {
+        @Override
+        public void mouseClicked(MouseEvent e)
+        {
+            if(mouseClick==null) { mouseClick = new CelestialBodyPosition( e.getX() , e.getY() ); }
+            else
+            {
+                mouseClick.setX( e.getX() );
+                mouseClick.setY( e.getY() );
+            }
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) { }
+
+        @Override
+        public void mouseReleased(MouseEvent e) { }
+
+        @Override
+        public void mouseEntered(MouseEvent e) { }
+
+        @Override
+        public void mouseExited(MouseEvent e) {   }
     };
 
     ActionListener objectTypeChooserListener = new ActionListener() //Cybulska
@@ -263,26 +301,51 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 }
                 if(choosenObject=="Sun")
                 {
-                    /**
-                     * Notes:
-                     * Ja bym nie dodawała słońca do listy, tylko zapisasła jakoś oddzielnie
-                     * + położenie słońca jest "generowane" automatycznie -> np. środek planszy
-                     * + można dodać tylko jedno słońce
-                     * + użytkownik ma wpływ tylko na masę słońca
-                     */
-                    planetArrayList.add(new Planet(centerPosition, (int)radius,3000,choosenObjectColor,mass,80));
-                    System.out.println("Pomyślnie dodano slonce!!!");
+                 /**
+                 * Notes:
+                 * Zapisałam słońce oddzielnie jako nowy obiekt
+                 * + położenie słońca jest generowane automatycznie -> środek simulationMainPanel
+                 * + można dodać tylko jedno słońce
+                 * + użytkownik przy próbie ponownego dodania słońca ma możliwość zmiany masy aktualnego słońca
+                 */
+                    if(sun != null)
+                    {
+                        Double d = sun.getMass();
+                        String s = (String)JOptionPane.showInputDialog (null,"Its impossible to add another sun,\n " +
+                                "but you can change its mass.","Sun already exist.",JOptionPane.INFORMATION_MESSAGE,null ,null,massField.getText());
+                        while ((s != null) && (s.length() > 0))
+                        {
+                            try { d = Double.parseDouble(s); break;}
+                            catch (NumberFormatException ex) { s = (String)JOptionPane.showInputDialog (null,"Its not a mass for the sun."
+                                    ,"Sun already exist.",JOptionPane.INFORMATION_MESSAGE,null ,null,massField.getText()); }
+                        }
+                        sun.setMass(d);
+                    }
+                    else
+                    {
+                        center.setX(simulationMainPanel.getWidth());
+                        center.setY(simulationMainPanel.getHeight());
+                        sun = new Planet(center,(int)radius,3000,choosenObjectColor,mass,20); //Dodaje słońse tak jak planete
+                        System.out.println("Pomyślnie dodano slonce!!!");
+                    }
+
 
                 }
                 if(choosenObject=="Moon")
                 {
                     /**
                      * Notes:
-                     * Księżyc można dodoać tylko do ostatnio dodanej planety???
+                     * Księżyc można dodoać tylko do ostatnio dodanej planety
                      * -> wtedy po dodaniu kolejnej nie ma możliwości dodawania książyców do poprzedniej
                      */
-                    planetArrayList.add(new Planet(center,(int)radius,3000,choosenObjectColor,mass,8));
-                    System.out.println("Pomyślnie dodano ksiezyc!!!");
+                    if(planetArrayList.isEmpty()) { JOptionPane.showMessageDialog (null,"Its impossible to add a moon to the planet that don't exist\n" +
+                            "add planet and try again.","Planet don't exist.",JOptionPane.ERROR_MESSAGE ); }
+                    else
+                    {
+                       // planetArrayList.get(planetArrayList.size()-1).addMoon(      );
+                        // planetArrayList.add(new Planet(center,(int)radius,3000,choosenObjectColor,mass,8));
+                        System.out.println("Pomyślnie dodano ksiezyc!!!");
+                    }
                 }
             }
             catch (NumberFormatException ex)

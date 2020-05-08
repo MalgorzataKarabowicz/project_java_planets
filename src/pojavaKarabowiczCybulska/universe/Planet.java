@@ -30,27 +30,11 @@ public class Planet extends CelestialBodyOrbit
         this.orbitRadius = orbitRadius; //promien
         this.orbitPeriod = orbitTime;//
         this.position = new CelestialBodyPosition(orbitCentre.getX(),orbitCentre.getY()+this.orbitRadius);
-        //this.angularSpeed = 2*Math.PI/this.orbitPeriod;
         this.angularSpeed = Math.sqrt( (6.67*pow(10,-14)*sunMass) / pow(this.orbitRadius,3) ) ;
-        //this.delta = 2*Math.PI*this.delay/(this.orbitPeriod*1000);
+        //this.angularSpeed = Math.sqrt(g * mass / orbitRadius / orbitRadius / orbitRadius);
     }
-<<<<<<< HEAD
-=======
-    */
-    public Planet(CelestialBodyPosition orbitCentre, int orbitRadius, double orbitTime, Color colour, double mass, int size)
-{
-    super();
-    this.colour = colour;
-    this.size = size;
-    this.mass = mass;
-    this.orbitCentre = orbitCentre;
-    this.orbitRadius = orbitRadius;
-    this.orbitPeriod = orbitTime;
-    this.position = new CelestialBodyPosition(orbitCentre.getX(),orbitCentre.getY()+this.orbitRadius);
-    this.angularSpeed = Math.sqrt(g*mass/orbitRadius/orbitRadius/orbitRadius);
-    this.delta = 2*Math.PI*this.delay/(this.orbitPeriod*1000);
-}
->>>>>>> a59cae53e4d74a99ec1595b18a6a50e0e713e49f
+
+
 
     /**
      * Napisałam aktualizowanie położenia planet i księżyców

@@ -14,7 +14,17 @@ public class DropDownMenu extends JMenuBar
             if(e.getSource()==menuSaveProject) { }
             if(e.getSource()==menuOpenProject) { }
             if(e.getSource()==menuCleanProject) { }
-            if(e.getSource()==menuNewProject) { }
+            if(e.getSource()==menuNewProject)
+            {
+                SwingUtilities.invokeLater(new Runnable()
+                {
+                    public void run()
+                    {
+                        PlanetarySystemSimulationMainFrame mainFrame = new PlanetarySystemSimulationMainFrame();
+                        mainFrame.setVisible(true);
+                    }
+                });
+            }
 
         }
     };

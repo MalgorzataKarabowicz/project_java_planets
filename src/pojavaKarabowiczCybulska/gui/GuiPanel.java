@@ -19,14 +19,17 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
     JRadioButton objectLocationRadiusChooser;
     JRadioButton objectLocationRandomChooser;
 
-    public static ArrayList<Planet> planetArrayList; //lista przechowująca planety
 
     Color choosenObjectColor;
     String choosenObject;
-    Planet sun;
+
     CelestialBodyPosition mouseClick;
 
-    CelestialBodyPosition centerPosition; //położenie środka (tam gdzie chcemy umieścić słońce)
+    public static Planet sun;
+
+    public static ArrayList<Planet> planetArrayList; //lista przechowująca planety
+
+    public static CelestialBodyPosition centerPosition; //położenie środka (tam gdzie chcemy umieścić słońce)
 
 
     private static SimulationMainPanel simulationMainPanel;
@@ -36,7 +39,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         this.setLayout(new BorderLayout());
 
         planetArrayList = new ArrayList<>();
-        centerPosition = new CelestialBodyPosition(275, 275);
+        centerPosition = new CelestialBodyPosition();
 
         simulationMainPanel = new SimulationMainPanel();
         simulationMainPanel.setBackground(Color.DARK_GRAY);
@@ -64,7 +67,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         backgroundColorChooser = new JComboBox(backgroundColorList);
         backgroundColorChooser.setSelectedIndex(0);
 
-        objectLocationRadiusChooser = new JRadioButton("Radius [AU]");
+        objectLocationRadiusChooser = new JRadioButton("Orbit Radius [AU]");
         objectLocationRadiusChooser.setSelected(true);
         objectLocationRandomChooser = new JRadioButton("Place clicking the mouse");
 
@@ -142,15 +145,13 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         //drawOrbitsButton.addActionListener(drawOrbitsButtonListener);
         onOfButton.addItemListener(onOfItemListener);
         simulationMainPanel.addMouseListener(mouseClickListener);
-        /**
-         * potrzebny listener do klikania na planszy z symulacją
-         */
-
-
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {}
+    public void actionPerformed(ActionEvent e)
+    {
+        simulationMainPanel.move(); //nie wiem czy to powinno być tutaj ??????????????
+    }
 
     public void start() {simulationMainPanel.start();}
     public void stop() {simulationMainPanel.stop();}
@@ -269,23 +270,22 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            double mass, radius;
-            CelestialBodyPosition center;
+            double mass = 0;
+            double radius = 0;
 
             try
             {
                 mass = Double.parseDouble(massField.getText() ); //masa
                 System.out.println("Masa: "+mass);
 
-                if(objectLocationRadiusChooser.isSelected()) { radius = Double.parseDouble(radiusField.getText() ); } //promien
-                else { radius = 30.5; } // Promien przy kliknieciu myszka
-                System.out.println("Promien: "+radius);
+                if(objectLocationRadiusChooser.isSelected()) { radius = Double.parseDouble(radiusField.getText()); } //promien
+                else { radius = 30.5; }
+                System.out.println("Promien: "+ radius);
 
-                //Polozenie srodka
-                if(objectLocationRandomChooser.isSelected()) { center = new CelestialBodyPosition(50,50); } //Wybor na podstawie klikniecia -> do zmiany !!!!!!!!!!!!!
+                if(objectLocationRandomChooser.isSelected()) { /* Potrzebna funkcja obliczjąca promień na podstawie punktu kliknięcia i położenia środka*/ } //Nie wiem czy tak na pewno powinno być
 
-                else { center = new CelestialBodyPosition(450, 300); }
-                System.out.println("Srodek: "+center.getX()+" "+center.getY() );
+               /* else { center = new CelestialBodyPosition(450, 300); }
+                System.out.println("Srodek: "+center.getX()+" "+center.getY() );  */
 
 
                 //Tworzenie obiektu
@@ -296,7 +296,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 }
                 if(choosenObject=="Planet")
                 {
-                    planetArrayList.add(new Planet(center,(int)radius,3000,choosenObjectColor,mass,20));
+                    planetArrayList.add(new Planet(centerPosition,(int)radius,3000,choosenObjectColor,mass,20));
                     System.out.println("Pomyślnie dodano planete!!!");
                 }
                 if(choosenObject=="Sun")
@@ -323,13 +323,11 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                     }
                     else
                     {
-                        center.setX(simulationMainPanel.getWidth());
-                        center.setY(simulationMainPanel.getHeight());
-                        sun = new Planet(center,(int)radius,3000,choosenObjectColor,mass,20); //Dodaje słońse tak jak planete
+                        centerPosition.setX(simulationMainPanel.getWidth());
+                        centerPosition.setY(simulationMainPanel.getHeight());
+                        sun = new Planet(centerPosition,(int)radius,3000,choosenObjectColor,mass,20); //Dodaje słońce tak jak planete
                         System.out.println("Pomyślnie dodano slonce!!!");
                     }
-
-
                 }
                 if(choosenObject=="Moon")
                 {

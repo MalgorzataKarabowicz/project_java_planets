@@ -44,17 +44,16 @@ public class Planet extends CelestialBodyOrbit
         return this.position;
     }
     //Nowa pozycja -> obliczenie
-    private void updatePosition()
+    public void updatePosition()
     {
 
         this.orbitAngle += delta;
-        // Check if lap completed
+
         if(this.orbitAngle > Math.PI * 2) {
             this.orbitAngle %= Math.PI * 2;
-            /* Increment orbit every lap */
             updateOrbits();
         }
-        /* Set new x,y coordinates */
+        // Nowe zmienne x, y
         this.position.setX((int)((Math.cos(this.orbitAngle) * this.orbitRadius) + this.orbitCentre.getX()));
         this.position.setY((int)((Math.sin(this.orbitAngle) * this.orbitRadius) + this.orbitCentre.getY()));
     }
@@ -71,5 +70,11 @@ public class Planet extends CelestialBodyOrbit
     }
     public void setMass(double mass) { this.mass =mass; }
     public double getMass() { return this.mass; }
+
+    public void paint(Graphics g)
+    {
+        g.getColor();
+        g.fillOval(position.getX(), position.getY(), size(), size());
+    }
 
 }

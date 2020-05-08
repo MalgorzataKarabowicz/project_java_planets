@@ -2,9 +2,9 @@ package pojavaKarabowiczCybulska.universe;
 
 public abstract class CelestialBodyOrbit extends CelestialBody
 {
-    protected int orbitRadius; // orbit radius of object
-    protected double angularSpeed; // angular speed of object
-    protected double orbitAngle = 0; // starting orbit angle
-    protected double delta; // angle increments
-    protected double delay = 50; // Delay in ms between steps
+    protected int orbitRadius; // promień orbity
+    protected double angularSpeed; // kątowa prędkość obiektu
+    protected double orbitAngle = 0; // początkowy kąt
+    protected double delta; // wartość wzrostu promienia
+    protected double delay = 50; // przerwa pomiędzy krokami (odświeżeniami)
 }

@@ -4,15 +4,15 @@ import java.awt.*;
 
 public abstract class CelestialBody
 {
-    protected CelestialBodyPosition position; // x,y coordinates of object on animation panel
-    protected CelestialBodyPosition orbitCentre; // x,y coordinates of orbit centre on animation panel
-    protected double orbitPeriod; // orbit period of object
-    protected Color colour; // colour of object on animation panel
-    protected int size; // size of object on animation panel
-    protected double mass; //mass of object
+    protected CelestialBodyPosition position; // pozycja obiektu na planszy
+    protected CelestialBodyPosition orbitCentre; // -> środek orbity -> tam gdzie znajduje się słońce
+    protected double orbitPeriod; // czas obiegu orbity -> uzależniona od masy i promienia
+    protected Color colour; // kolor dodawanego obiektu
+    protected int size; // rozmiar obiektu na planszy -> trzeba by uzależnić od podawanej masy
+    protected double mass; // masa obiektu
 
     protected int size(){return this.size;};
-    protected Color colour(){return this.colour;};
-    /* Methods to implement in subclasses */
-    abstract CelestialBodyPosition getPosition(); // position of object
+    public Color getColor(){return this.colour;};
+
+    abstract CelestialBodyPosition getPosition(); // -> pozycja obiektu
 }

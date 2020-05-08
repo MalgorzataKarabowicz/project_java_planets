@@ -2,11 +2,14 @@ package pojavaKarabowiczCybulska.gui;
 import pojavaKarabowiczCybulska.simulation.SimulationMainPanel;
 import pojavaKarabowiczCybulska.universe.CelestialBodyPosition;
 import pojavaKarabowiczCybulska.universe.Planet;
+import pojavaKarabowiczCybulska.universe.Sun;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+
+import static java.lang.Math.pow;
 
 
 public class GuiPanel extends JPanel implements ActionListener //Karabowicz
@@ -25,7 +28,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
 
     CelestialBodyPosition mouseClick;
 
-    public static Planet sun;
+    public static Sun sun;
 
     public static ArrayList<Planet> planetArrayList; //lista przechowująca planety
 
@@ -215,7 +218,10 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
     MouseListener mouseClickListener = new MouseListener()
     {
         @Override
-        public void mouseClicked(MouseEvent e)
+        public void mouseClicked(MouseEvent e) {  }
+
+        @Override
+        public void mousePressed(MouseEvent e)
         {
             if(mouseClick==null) { mouseClick = new CelestialBodyPosition( e.getX() , e.getY() ); }
             else
@@ -223,11 +229,8 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 mouseClick.setX( e.getX() );
                 mouseClick.setY( e.getY() );
             }
-
+            System.out.println("Kliknięto: "+mouseClick.getX()+"  "+mouseClick.getY());
         }
-
-        @Override
-        public void mousePressed(MouseEvent e) { }
 
         @Override
         public void mouseReleased(MouseEvent e) { }
@@ -279,7 +282,26 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 System.out.println("Masa: "+mass);
 
                 if(objectLocationRadiusChooser.isSelected()) { radius = Double.parseDouble(radiusField.getText()); } //promien
-                else { radius = 30.5; }
+                else
+                {
+                    if(mouseClick == null)
+                    {
+                        JOptionPane.showMessageDialog (null,"Click on the simulation to chose radius.","Not choosen radius.",JOptionPane.ERROR_MESSAGE );
+                    }
+                    else
+                    {
+                        int sunX = ( simulationMainPanel.getWidth()/2 );
+                        int sunY = ( simulationMainPanel.getHeight()/2 );
+                        int x,y;
+
+                        if(sunX > mouseClick.getX() ) x=sunX-mouseClick.getX();
+                        else x= mouseClick.getX()-sunX;
+
+                        if(sunY > mouseClick.getY() ) y=sunY-mouseClick.getY();
+                        else y= mouseClick.getY()-sunY;
+                        radius = (int)Math.sqrt( pow(x,2)+pow(y,2) );
+                    }
+                }
                 System.out.println("Promien: "+ radius);
 
                 if(objectLocationRandomChooser.isSelected()) { /* Potrzebna funkcja obliczjąca promień na podstawie punktu kliknięcia i położenia środka*/ } //Nie wiem czy tak na pewno powinno być
@@ -296,7 +318,8 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 }
                 if(choosenObject=="Planet")
                 {
-                    planetArrayList.add(new Planet(centerPosition,(int)radius,3000,choosenObjectColor,mass,20));
+                    if(sun == null) { planetArrayList.add(new Planet(centerPosition,(int)radius,3000,choosenObjectColor,mass,1,20)); }
+                    else { planetArrayList.add(new Planet(centerPosition,(int)radius,3000,choosenObjectColor,mass,sun.getMass(),20)); }
                     System.out.println("Pomyślnie dodano planete!!!");
                 }
                 if(choosenObject=="Sun")
@@ -320,12 +343,13 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                                     ,"Sun already exist.",JOptionPane.INFORMATION_MESSAGE,null ,null,massField.getText()); }
                         }
                         sun.setMass(d);
+                        for(int i=0; i<planetArrayList.size()-1; i++) {planetArrayList.get(i).updateSpeed(d); }
                     }
                     else
                     {
-                        centerPosition.setX(simulationMainPanel.getWidth());
-                        centerPosition.setY(simulationMainPanel.getHeight());
-                        sun = new Planet(centerPosition,(int)radius,3000,choosenObjectColor,mass,20); //Dodaje słońce tak jak planete
+                        centerPosition.setX(simulationMainPanel.getWidth()/2);
+                        centerPosition.setY(simulationMainPanel.getHeight()/2);
+                        sun = new Sun(centerPosition,choosenObjectColor,mass,20);
                         System.out.println("Pomyślnie dodano slonce!!!");
                     }
                 }

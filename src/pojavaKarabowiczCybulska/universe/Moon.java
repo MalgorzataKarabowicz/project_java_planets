@@ -2,9 +2,13 @@ package pojavaKarabowiczCybulska.universe;
 
 import java.awt.*;
 
+import static java.lang.Math.pow;
+
 public class Moon extends CelestialBodyOrbit
 {
-    public Moon(CelestialBodyPosition orbitCentre,int orbitRadius, double orbitTime, Color colour, double mass, int size)
+    private int numOrbits = 0;
+
+    public Moon(CelestialBodyPosition orbitCentre,int orbitRadius, double orbitTime, Color colour, double mass, double planetMass, int size)
     {
         super();
         this.orbitCentre = orbitCentre;
@@ -15,24 +19,33 @@ public class Moon extends CelestialBodyOrbit
         this.orbitRadius = orbitRadius;
         this.orbitPeriod = orbitTime;
         this.position = new CelestialBodyPosition(orbitCentre.getX(),orbitCentre.getY()+this.orbitRadius);
-        this.angularSpeed = 2*Math.PI/this.orbitPeriod;
-        this.delta = 2*Math.PI*this.delay/(this.orbitPeriod*1000);
+        this.angularSpeed = Math.sqrt( (6.67*pow(10,-14)*planetMass) / pow(this.orbitRadius,3) ) ;
     }
     public void setOrbitCentre(CelestialBodyPosition orbitCentre) { this.orbitCentre = orbitCentre;}
 
     /**
-     * Trzeba napisać funkcje ogarniajaca polozenie
+     * Obczaj ta funkcje
      * @return
      */
     @Override
-    public CelestialBodyPosition getPosition()
-    {
-        //updatePosition();
-        return this.position;
+    public CelestialBodyPosition getPosition() { return this.position; }
+
+    private void updateOrbits() {
+        numOrbits++;
     }
 
-    private void updatePosition()
+    public void updatePosition(CelestialBodyPosition planetPosittion)
     {
+
+        this.orbitAngle += this.angularSpeed;
+
+        if(this.orbitAngle > Math.PI * 2) {
+            this.orbitAngle %= Math.PI * 2;
+            updateOrbits();
+        }
+        // Nowe zmienne x, y
+        this.position.setX( (int)((Math.cos(this.orbitAngle) * this.orbitRadius) + planetPosittion.getX()) );
+        this.position.setY( (int)((Math.sin(this.orbitAngle) * this.orbitRadius) + planetPosittion.getY()) );
 
     }
 }

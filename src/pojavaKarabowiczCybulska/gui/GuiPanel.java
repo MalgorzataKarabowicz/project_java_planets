@@ -1,6 +1,7 @@
 package pojavaKarabowiczCybulska.gui;
 import pojavaKarabowiczCybulska.simulation.SimulationMainPanel;
 import pojavaKarabowiczCybulska.universe.CelestialBodyPosition;
+import pojavaKarabowiczCybulska.universe.Moon;
 import pojavaKarabowiczCybulska.universe.Planet;
 import pojavaKarabowiczCybulska.universe.Sun;
 
@@ -167,6 +168,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
             if (state == ItemEvent.SELECTED)
             {
                 stop();
+                writeTerminalPlanets();
                 System.out.println("Selected");
             }
             else
@@ -282,7 +284,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 System.out.println("Masa: "+mass);
 
                 if(objectLocationRadiusChooser.isSelected()) { radius = Double.parseDouble(radiusField.getText()); } //promien
-                else
+                else if (objectLocationRandomChooser.isSelected())
                 {
                     if(mouseClick == null)
                     {
@@ -304,13 +306,8 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 }
                 System.out.println("Promien: "+ radius);
 
-                if(objectLocationRandomChooser.isSelected()) { /* Potrzebna funkcja obliczjąca promień na podstawie punktu kliknięcia i położenia środka*/ } //Nie wiem czy tak na pewno powinno być
 
-               /* else { center = new CelestialBodyPosition(450, 300); }
-                System.out.println("Srodek: "+center.getX()+" "+center.getY() );  */
-
-
-                //Tworzenie obiektu
+                //Tworzenie obiektow
                 if(choosenObject=="!")
                 {
                     System.out.println("Nie wybrano obiektu!");
@@ -364,7 +361,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                             "add planet and try again.","Planet don't exist.",JOptionPane.ERROR_MESSAGE ); }
                     else
                     {
-                       // planetArrayList.get(planetArrayList.size()-1).addMoon(      );
+                        //planetArrayList.get(planetArrayList.size()-1).addMoon((int)radius,3000, choosenObjectColor, mass, 5 );
                         // planetArrayList.add(new Planet(center,(int)radius,3000,choosenObjectColor,mass,8));
                         System.out.println("Pomyślnie dodano ksiezyc!!!");
                     }
@@ -378,6 +375,37 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
 
         }
     };
+
+    public static void clean()
+    {
+        for(int i=0; i<planetArrayList.size()-1; i++)
+        {
+            planetArrayList.get(i).moons.clear();
+        }
+        planetArrayList.clear();
+        sun = null;
+        System.out.println("Cleaning is over.");
+    }
+
+    private void writeTerminalPlanets()
+    {
+        for(int i=0; i<planetArrayList.size(); i++)
+        {
+            System.out.println("Planeta "+(i+1)+"   masa: "+planetArrayList.get(i).getMass()+" promien: "+planetArrayList.get(i).getOrbitRadius());
+
+            if(planetArrayList.get(i).moons != null)
+            {
+                System.out.println("!");
+                for(int j=0; j<planetArrayList.get(i).moons.size(); j++)
+                {
+                    System.out.println("Księżyc: "+(j+1)+"  masa: "+planetArrayList.get(i).moons.get(j).getMass()+
+                            " promien: "+planetArrayList.get(i).moons.get(j).getOrbitRadius() );
+                }
+            }
+
+        }
+
+    }
 
 
 }

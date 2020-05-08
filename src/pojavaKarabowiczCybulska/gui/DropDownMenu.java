@@ -13,7 +13,7 @@ public class DropDownMenu extends JMenuBar
         {
             if(e.getSource()==menuSaveProject) { }
             if(e.getSource()==menuOpenProject) { }
-            if(e.getSource()==menuCleanProject) { }
+            if(e.getSource()==menuCleanProject) {GuiPanel.clean(); }
             if(e.getSource()==menuNewProject)
             {
                 SwingUtilities.invokeLater(new Runnable()

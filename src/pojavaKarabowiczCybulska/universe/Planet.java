@@ -13,11 +13,19 @@ public class Planet extends CelestialBodyOrbit
     private int numOrbits = 0;
     private final int g = 1;
 
-    private ArrayList<Moon> moons;
+    public ArrayList<Moon> moons;
 
     public void addMoon(int orbitRadius, double orbitTime, Color color, double mass, int size )
     {
-        moons.add(new Moon(this.orbitCentre, orbitRadius, orbitTime,color,mass,this.mass,size) );
+        this.moons.add(
+                new Moon(
+                        this.orbitCentre,
+                orbitRadius,
+                orbitTime,
+                color,
+                mass,
+                this.mass,
+                size) );
     }
 
     public Planet(CelestialBodyPosition orbitCentre, int orbitRadius, double orbitTime, Color colour, double mass, double sunMass, int size)

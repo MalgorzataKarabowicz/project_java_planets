@@ -56,9 +56,6 @@ public class SimulationMainPanel extends JPanel implements ActionListener
             });
     }
 
-
-
-
     //Rozpoczęcie animacji
     public void start() {animationTimer.start();}
     //zatrzymanie animacji

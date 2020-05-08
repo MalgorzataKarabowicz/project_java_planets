@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Planet extends CelestialBodyOrbit
 {
     private int numOrbits = 0;
+    private final int g = 1;
 
     private ArrayList<Moon> moons;
     /*
@@ -27,7 +28,7 @@ public class Planet extends CelestialBodyOrbit
     this.orbitRadius = orbitRadius;
     this.orbitPeriod = orbitTime;
     this.position = new CelestialBodyPosition(orbitCentre.getX(),orbitCentre.getY()+this.orbitRadius);
-    this.angularSpeed = 2*Math.PI/this.orbitPeriod;
+    this.angularSpeed = Math.sqrt(g*mass/orbitRadius/orbitRadius/orbitRadius);
     this.delta = 2*Math.PI*this.delay/(this.orbitPeriod*1000);
 }
 

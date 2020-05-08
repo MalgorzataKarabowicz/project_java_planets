@@ -361,7 +361,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                             "add planet and try again.","Planet don't exist.",JOptionPane.ERROR_MESSAGE ); }
                     else
                     {
-                        //planetArrayList.get(planetArrayList.size()-1).addMoon((int)radius,3000, choosenObjectColor, mass, 5 );
+                        planetArrayList.get(planetArrayList.size()-1).addMoon((int)radius,3000, choosenObjectColor, mass, 5 );
                         // planetArrayList.add(new Planet(center,(int)radius,3000,choosenObjectColor,mass,8));
                         System.out.println("Pomyślnie dodano ksiezyc!!!");
                     }

@@ -48,6 +48,13 @@ public class Moon extends CelestialBodyOrbit
         this.position.setY( (int)((Math.sin(this.orbitAngle) * this.orbitRadius) + planetPosittion.getY()) );
 
     }
+
+    public void paint(Graphics g)
+    {
+        g.setColor(this.colour);
+        g.fillOval(position.getX(), position.getY(), size(), size());
+    }
     public double getMass() { return this.mass; }
     public double getOrbitRadius() { return this.orbitRadius; }
+    public Color getColor() { return this.colour; }
 }

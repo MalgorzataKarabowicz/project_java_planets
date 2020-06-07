@@ -29,7 +29,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
     JRadioButton objectLocationRandomChooser;
 
 
-    Color choosenObjectColor;
+    public static Color choosenObjectColor = Color.YELLOW;
     String choosenObject;
 
     CelestialBodyPosition mouseClick;
@@ -47,6 +47,8 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
 
     public GuiPanel() //Karabowicz
     {
+        choosenObjectColor = Color.YELLOW;
+
         this.setLayout(new BorderLayout());
 
         planetArrayList = new ArrayList<>();
@@ -147,7 +149,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
 
         //listeners
         changeObjectColorButton.addActionListener
-                ( e -> choosenObjectColor = JColorChooser.showDialog(null, "Choose Object Color", Color.yellow) );
+                ( e -> choosenObjectColor = JColorChooser.showDialog(null, "Choose Object Color", choosenObjectColor) );
 
 
         backgroundColorChooser.addActionListener(backgroundColorListener);

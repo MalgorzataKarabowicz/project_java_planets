@@ -1,6 +1,7 @@
 package pojavaKarabowiczCybulska.simulation;
 
 
+import pojavaKarabowiczCybulska.gui.GuiPanel;
 import pojavaKarabowiczCybulska.universe.Planet;
 
 import javax.swing.*;
@@ -31,6 +32,8 @@ public class SimulationMainPanel extends JPanel implements ActionListener
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+
 
         for (Planet planet: planetArrayList) {
             planet.paint(g);

@@ -1,13 +1,15 @@
 package pojavaKarabowiczCybulska.gui;
 import pojavaKarabowiczCybulska.simulation.SimulationMainPanel;
 import pojavaKarabowiczCybulska.universe.CelestialBodyPosition;
-import pojavaKarabowiczCybulska.universe.Moon;
 import pojavaKarabowiczCybulska.universe.Planet;
 import pojavaKarabowiczCybulska.universe.Sun;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static java.lang.Math.pow;
@@ -38,7 +40,9 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
 
     private static SimulationMainPanel simulationMainPanel;
 
-    public GuiPanel()
+    static String textToWrite = "";
+
+    public GuiPanel() //Karabowicz
     {
         this.setLayout(new BorderLayout());
 
@@ -179,7 +183,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         }
     };
 
-    ActionListener backgroundColorListener = new ActionListener()
+    ActionListener backgroundColorListener = new ActionListener()  //Karabowicz
     {
         @Override
         public void actionPerformed(ActionEvent e)
@@ -405,6 +409,63 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
 
         }
 
+    }
+
+    //Karabowicz
+    private static void setTextToWrite()
+    {
+        textToWrite = "";
+        textToWrite = textToWrite + "Sun " + "mass: " + sun.getMass() + "\n";
+
+        for(int i=0; i<planetArrayList.size(); i++)
+        {
+            if(planetArrayList.get(i).moons == null){
+                textToWrite = textToWrite + "Planeta "+(i+1)+"   masa: "+planetArrayList.get(i).getMass()+" promien: "+planetArrayList.get(i).getOrbitRadius() + "\n";
+            }
+            else
+            {
+                //coś nie działa z zapisywaniem tej części
+                for(int j=0; j<planetArrayList.get(i).moons.size(); j++)
+                {
+                    textToWrite = textToWrite + "Księżyc: "+(j+1)+"  masa: "+planetArrayList.get(i).moons.get(j).getMass()+
+                            " promien: "+planetArrayList.get(i).moons.get(j).getOrbitRadius() + "\n";
+                }
+            }
+
+        }
+    }
+
+    //Karabowicz
+    public static void saveFile()
+    {
+        setTextToWrite();
+
+        String fileName;
+
+        //wybieranie pliku do otwarcia
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Wybierz plik");
+        int returnVal = fileChooser.showDialog(null, "Wybierz");
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            fileName = String.valueOf(fileChooser.getSelectedFile().toPath());
+        }
+        else {
+            fileName = "Open command cancelled by user." ;
+        }
+
+        FileWriter fileWriter = null;
+
+        try{
+            fileWriter = new FileWriter(fileName);
+            BufferedWriter bw = new BufferedWriter(fileWriter);
+            bw.write(textToWrite);
+
+            bw.close();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
 

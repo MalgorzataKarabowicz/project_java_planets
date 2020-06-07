@@ -47,16 +47,19 @@ public class SimulationMainPanel extends JPanel implements ActionListener
         /**
          * nie wiem czy to ma tutaj jakikolwiek sens -> raczej nie
          */
-        Thread thread = new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable()
+        {
             @Override
-            public void run() {
-                for (Planet planet : planetArrayList) {
+            public void run()
+            {
+                for (Planet planet : planetArrayList)
+                {
                     planet.updatePosition();
 
                     repaint();
                 }
             }
-            });
+        });
     }
 
     //Rozpoczęcie animacji

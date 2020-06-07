@@ -18,13 +18,15 @@ public class Planet extends CelestialBodyOrbit
     public void addMoon(int orbitRadius, double orbitTime, Color color, double mass, int size )
     {
         Moon m = new Moon( this.orbitCentre, orbitRadius, orbitTime, color, mass, this.mass, size) ;
-        //moons.add(moons.size(),m);
+        System.out.println("Moons"+size );
+        moons.add(m);
 
     }
 
     public Planet(CelestialBodyPosition orbitCentre, int orbitRadius, double orbitTime, Color colour, double mass, double sunMass, int size)
     {
         super();
+        moons = new ArrayList<>();
         this.colour = colour;
         this.size = size;
         this.mass = mass;
@@ -79,7 +81,7 @@ public class Planet extends CelestialBodyOrbit
 
     public void paint(Graphics g)
     {
-        g.getColor();
+        g.setColor(this.colour);
         g.fillOval(position.getX(), position.getY(), size(), size());
     }
 

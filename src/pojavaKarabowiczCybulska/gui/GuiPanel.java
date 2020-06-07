@@ -321,6 +321,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 {
                     if(sun == null) { planetArrayList.add(new Planet(centerPosition,(int)radius,3000,choosenObjectColor,mass,1,20)); }
                     else { planetArrayList.add(new Planet(centerPosition,(int)radius,3000,choosenObjectColor,mass,sun.getMass(),20)); }
+                    simulationMainPanel.repaint();
                     System.out.println("Pomyślnie dodano planete!!!");
                 }
                 if(choosenObject=="Sun")
@@ -351,6 +352,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                         centerPosition.setX(simulationMainPanel.getWidth()/2);
                         centerPosition.setY(simulationMainPanel.getHeight()/2);
                         sun = new Sun(centerPosition,choosenObjectColor,mass,20);
+                        simulationMainPanel.repaint();
                         System.out.println("Pomyślnie dodano slonce!!!");
                     }
                 }
@@ -366,6 +368,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                     else
                     {
                         planetArrayList.get(planetArrayList.size()-1).addMoon((int)radius,3000, choosenObjectColor, mass, 5 );
+                        simulationMainPanel.repaint();
                         // planetArrayList.add(new Planet(center,(int)radius,3000,choosenObjectColor,mass,8));
                         System.out.println("Pomyślnie dodano ksiezyc!!!");
                     }

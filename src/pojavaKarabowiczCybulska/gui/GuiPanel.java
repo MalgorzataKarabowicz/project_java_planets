@@ -11,12 +11,15 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ScheduledExecutorService;
 
 import static java.lang.Math.pow;
 
 
 public class GuiPanel extends JPanel implements ActionListener //Karabowicz
 {
+
+
     JButton changeObjectColorButton, createObjectButton, drawOrbitsButton;
     JToggleButton onOfButton;
     JTextField massField, radiusField;
@@ -178,6 +181,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
             else
             {
                 start();
+                simulationMainPanel.move();
                 System.out.println("Deselected");
             }
         }

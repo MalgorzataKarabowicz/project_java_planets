@@ -8,7 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
+
 import static pojavaKarabowiczCybulska.gui.GuiPanel.planetArrayList;
+import static pojavaKarabowiczCybulska.gui.PlanetarySystemSimulationMainFrame.ogarniaczWatkow;
 
 
 /*
@@ -55,7 +58,7 @@ public class SimulationMainPanel extends JPanel implements ActionListener
         /**
          * nie wiem czy to ma tutaj jakikolwiek sens -> raczej nie
          */
-        Thread thread = new Thread(new Runnable()
+        ogarniaczWatkow.schedule(new Runnable()
         {
             @Override
             public void run()
@@ -66,7 +69,7 @@ public class SimulationMainPanel extends JPanel implements ActionListener
                     repaint();
                 }
             }
-        });
+        },0, TimeUnit.SECONDS);
     }
 
     //Rozpoczęcie animacji

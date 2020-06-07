@@ -3,12 +3,17 @@ package pojavaKarabowiczCybulska.gui;
 
 
 import javax.swing.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 
 public class PlanetarySystemSimulationMainFrame extends JFrame
 {
+    public static ScheduledExecutorService ogarniaczWatkow; // ########## WATKI ############
+
     PlanetarySystemSimulationMainFrame()
     {
+        ogarniaczWatkow = Executors.newScheduledThreadPool(8);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(900,600);
         this.setTitle("Planetary System Simulation");

@@ -30,13 +30,21 @@ public class SimulationMainPanel extends JPanel implements ActionListener
         animationTimer.start();
     }
 
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g)  //Karabowicz
+    {
         super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
 
+        if(GuiPanel.sun != null)
+        {
+            g2d.setColor(GuiPanel.sun.getColor());
+            GuiPanel.sun.paint(g2d);
+        }
 
-
-        for (Planet planet: planetArrayList) {
-            planet.paint(g);
+        for (Planet planet: planetArrayList)
+        {
+            g2d.setColor(planet.getColor());
+            planet.paint(g2d);
         }
 
     }
@@ -52,7 +60,6 @@ public class SimulationMainPanel extends JPanel implements ActionListener
             public void run() {
                 for (Planet planet : planetArrayList) {
                     planet.updatePosition();
-
                     repaint();
                 }
             }
@@ -68,6 +75,6 @@ public class SimulationMainPanel extends JPanel implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        //repaint();
+        repaint();
     }
 }

@@ -23,6 +23,14 @@ public class Sun extends CelestialBodyOrbit //Cybulska
     public double getMass() { return this.mass; }
     public void setMass(double mass) { this.mass = mass; }
 
+    private void setSize() //Karabowicz
+    {
+        if(mass < 1)
+        {
+
+        }
+    }
+
 
     public void paint(Graphics g)
     {

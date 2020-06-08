@@ -1,5 +1,7 @@
 package pojavaKarabowiczCybulska.universe;
 
+import pojavaKarabowiczCybulska.gui.GuiPanel;
+
 import java.awt.*;
 
 import static java.lang.Math.pow;
@@ -7,18 +9,20 @@ import static java.lang.Math.pow;
 public class Moon extends CelestialBodyOrbit
 {
     private int numOrbits = 0;
+    private int planetSize;
 
-    public Moon(CelestialBodyPosition orbitCentre,int orbitRadius, double orbitTime, Color colour, double mass, double planetMass, int size)
+    public Moon(CelestialBodyPosition orbitCentre,int planetSize, int orbitRadius, double orbitTime, Color colour, double mass, double planetMass, int size)
     {
         super();
-        this.orbitCentre = orbitCentre;
+        this.planetSize = planetSize;
+        this.orbitCentre = new CelestialBodyPosition(orbitCentre.getX()+(this.planetSize)/4,orbitCentre.getY()+(this.planetSize)/4);
 
         this.colour = colour;
         this.size = size;
         this.mass = mass;
         this.orbitRadius = orbitRadius;
         this.orbitPeriod = orbitTime;
-        this.position = new CelestialBodyPosition( orbitCentre.getX()+this.orbitRadius,orbitCentre.getY()+this.orbitRadius);
+        this.position = new CelestialBodyPosition( this.orbitCentre.getX(),this.orbitCentre.getY());
         this.angularSpeed = Math.sqrt( (6.67*pow(10,-14)*planetMass) / pow(this.orbitRadius,3) ) ;
     }
     public void setOrbitCentre(CelestialBodyPosition orbitCentre) { this.orbitCentre = orbitCentre;}
@@ -36,8 +40,8 @@ public class Moon extends CelestialBodyOrbit
 
     public void updatePosition(CelestialBodyPosition planetPosittion)
     {
-        this.orbitCentre.setX( planetPosittion.getX() );
-        this.orbitCentre.setY( planetPosittion.getY() );
+        this.orbitCentre.setX( planetPosittion.getX()+(this.planetSize)/4 +this.size/4 );
+        this.orbitCentre.setY( planetPosittion.getY()+(this.planetSize)/4 +this.size/4 );
 
         this.orbitAngle += 0.01;
 
@@ -56,6 +60,11 @@ public class Moon extends CelestialBodyOrbit
     {
         g.setColor(this.colour);
         g.fillOval(position.getX(), position.getY(), size(), size());
+    }
+    public void paintOrbit(Graphics g) //mam nadzieję, że to tak będzie
+    {
+        g.setColor(this.colour);
+        g.drawOval(this.orbitCentre.getX() + size/4 - orbitRadius+this.size/4, this.orbitCentre.getY() +size/4 - orbitRadius +this.size/4, 2*orbitRadius, 2*orbitRadius);
     }
     public double getMass() { return this.mass; }
     public double getOrbitRadius() { return this.orbitRadius; }

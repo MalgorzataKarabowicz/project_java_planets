@@ -13,6 +13,7 @@ public class Sun extends CelestialBodyOrbit //Cybulska
         setSize();
         this.position = position;
         this.angularSpeed = 0;
+        this.orbitCentre = new CelestialBodyPosition(this.position.getX()+this.size/4,this.position.getY()+this.size/4);
     }
 
     @Override
@@ -27,23 +28,23 @@ public class Sun extends CelestialBodyOrbit //Cybulska
     {
         if(mass <= 1)
         {
-            size = 10;
+            this.size = 10;
         }
         else if(1 < mass && mass <= 100)
         {
-            size = 15;
+            this.size = 16;
         }
         else if(100 < mass && mass <= 1000)
         {
-            size = 20;
+            this.size = 20;
         }
         else if(1000 < mass && mass <= 10000)
         {
-            size = 25;
+            this.size = 24;
         }
         else if(10000 < mass)
         {
-            size = 30;
+            this.size = 30;
         }
     }
 
@@ -51,6 +52,6 @@ public class Sun extends CelestialBodyOrbit //Cybulska
     public void paint(Graphics g)
     {
         g.getColor();
-        g.fillOval(position.getX() - size/4, position.getY() - size/4, size(), size());
+        g.fillOval(position.getX(), position.getY(), size(), size());
     }
 }

@@ -18,7 +18,7 @@ public class Planet extends CelestialBodyOrbit
 
     public void addMoon(int orbitRadius, double orbitTime, Color color, double mass, int size )
     {
-        Moon m = new Moon( this.position, orbitRadius, orbitTime, color, mass, this.mass, size) ;
+        Moon m = new Moon( this.position,this.size, orbitRadius, orbitTime, color, mass, this.mass, size) ;
         System.out.println("Moons"+size );
         moons.add(m);
     }
@@ -33,7 +33,7 @@ public class Planet extends CelestialBodyOrbit
         this.orbitCentre = orbitCentre; //położenie srodka
         this.orbitRadius = orbitRadius; //promien
         this.orbitPeriod = orbitTime;//
-        this.position = new CelestialBodyPosition(orbitCentre.getX(),orbitCentre.getY()+this.orbitRadius);
+        this.position = new CelestialBodyPosition(orbitCentre.getX() - size/4,orbitCentre.getY()+this.orbitRadius - size/4);
         this.angularSpeed = Math.sqrt( (1*pow(10,-14)*sunMass) / pow(this.orbitRadius,3) ) ;
         //this.angularSpeed = Math.sqrt(g * mass / orbitRadius / orbitRadius / orbitRadius);
     }
@@ -87,7 +87,8 @@ public class Planet extends CelestialBodyOrbit
 
     public void paintOrbit(Graphics g)
     {
-        g.drawOval(GuiPanel.sun.position.getX() + size/2 - orbitRadius, GuiPanel.sun.position.getY() +size/2 - orbitRadius, 2*orbitRadius, 2*orbitRadius);
+        g.setColor(this.colour);
+        g.drawOval(GuiPanel.sun.orbitCentre.getX() + size/4 - orbitRadius, GuiPanel.sun.orbitCentre.getY() +size/4 - orbitRadius, 2*orbitRadius, 2*orbitRadius);
     }
 
     private void setSize() //Karabowicz
@@ -98,7 +99,7 @@ public class Planet extends CelestialBodyOrbit
         }
         else if(1 < mass && mass <= 100)
         {
-            size = 15;
+            size = 16;
         }
         else if(100 < mass && mass <= 1000)
         {
@@ -106,7 +107,7 @@ public class Planet extends CelestialBodyOrbit
         }
         else if(1000 < mass && mass <= 10000)
         {
-            size = 25;
+            size = 24;
         }
         else if(10000 < mass)
         {

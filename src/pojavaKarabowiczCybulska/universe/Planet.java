@@ -34,7 +34,7 @@ public class Planet extends CelestialBodyOrbit
         this.orbitRadius = orbitRadius; //promien
         this.orbitPeriod = orbitTime;//
         this.position = new CelestialBodyPosition(orbitCentre.getX() - size/4,orbitCentre.getY()+this.orbitRadius - size/4);
-        this.angularSpeed = Math.sqrt( (1*pow(10,-14)*sunMass) / pow(this.orbitRadius,3) ) ;
+        this.angularSpeed = Math.sqrt( (6.67*pow(10,-14)*sunMass*6*pow(10,24)) / pow( this.orbitRadius*150*pow(10,9) ,3) ) ;
         //this.angularSpeed = Math.sqrt(g * mass / orbitRadius / orbitRadius / orbitRadius);
     }
 
@@ -50,7 +50,7 @@ public class Planet extends CelestialBodyOrbit
     public void updatePosition()
     {
 
-        this.orbitAngle += 0.005;
+        this.orbitAngle += (this.angularSpeed)*pow(10,11);
 
         if(this.orbitAngle > Math.PI * 2)
         {

@@ -23,7 +23,7 @@ public class Moon extends CelestialBodyOrbit
         this.orbitRadius = orbitRadius;
         this.orbitPeriod = orbitTime;
         this.position = new CelestialBodyPosition( this.orbitCentre.getX(),this.orbitCentre.getY());
-        this.angularSpeed = Math.sqrt( (6.67*pow(10,-14)*planetMass) / pow(this.orbitRadius,3) ) ;
+        this.angularSpeed = Math.sqrt( (6.67*pow(10,-14)*planetMass*6*pow(10,24)) / pow( this.orbitRadius*150*pow(10,9) ,3) ) ;
     }
     public void setOrbitCentre(CelestialBodyPosition orbitCentre) { this.orbitCentre = orbitCentre;}
 
@@ -43,7 +43,7 @@ public class Moon extends CelestialBodyOrbit
         this.orbitCentre.setX( planetPosittion.getX()+(this.planetSize)/4 +this.size/4 );
         this.orbitCentre.setY( planetPosittion.getY()+(this.planetSize)/4 +this.size/4 );
 
-        this.orbitAngle += 0.01;
+        this.orbitAngle += (this.angularSpeed*pow(10,11));
 
         if(this.orbitAngle > Math.PI * 2)
         {

@@ -180,13 +180,11 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
             {
                 stop();
                 writeTerminalPlanets();
-                System.out.println("Selected");
             }
             else
             {
                 start();
                 simulationMainPanel.move();
-                System.out.println("Deselected");
             }
         }
     };
@@ -210,11 +208,9 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
             }
             else if (selected == 1) {
                 simulationMainPanel.setBackground(Color.BLACK);
-                System.out.println("----test1---");
             }
             else if (selected == 2) {
                 simulationMainPanel.setBackground(Color.DARK_GRAY);
-                System.out.println("---test2----");
             }
             else if (selected == 3) {
                 simulationMainPanel.setBackground(Color.GRAY);
@@ -225,18 +221,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         }
     };
 
-    /**
-     * Ta funkcja jest jeszcze do przemyslenia
-     * bo
-     * 1    mozna zrobić to tak, że bedzie dodawało obiekt w momencie kliknięcia
-     * i wtedy będziemy miały dwa powtarzające się fragmenty kodu
-     * (lub się ten fragment po prostu do funkcji wrzuci i sie bedzie ja wywolywac)
-     * i będzie trzeba pamiętać o słońcu i księżycach
-     *
-     * 2    można czekać na kliknięcie przycisku i wtedy bez wiekszych problemów
-     * tylko będzie trzeba poinformować uzytkownika
-     *
-     */
+
     MouseListener mouseClickListener = new MouseListener()
     {
         @Override
@@ -274,17 +259,14 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
             else if (selected == 1)
             {
                 choosenObject = "Planet";
-                System.out.println("----planeta---");
             }
             else if (selected == 2)
             {
                 choosenObject ="Sun";
-                System.out.println("---slonce----");
             }
             else if (selected == 3)
             {
                 choosenObject ="Moon";
-                System.out.println("---ksiezyc----");
             }
 
         }
@@ -301,7 +283,6 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
             try
             {
                 mass = Double.parseDouble(massField.getText() ); //masa
-                System.out.println("Masa: "+mass);
 
                 if(objectLocationRadiusChooser.isSelected()) { radius = Double.parseDouble(radiusField.getText()); } //promien
                 else if (objectLocationRandomChooser.isSelected())
@@ -324,8 +305,6 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                         radius = (int)Math.sqrt( pow(x,2)+pow(y,2) );
                     }
                 }
-                System.out.println("Promien: "+ radius);
-
 
                 //Tworzenie obiektow
                 if(choosenObject=="!")
@@ -485,7 +464,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         }
     }
 
-    public static void openFile()
+    public static void openFile() //Cybulska
     {
         String fileName;
 
@@ -522,7 +501,6 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                     for(int i=10; i<wczytane.length(); i++)
                     {
                         masa+=wczytane.toCharArray()[i];
-                        //System.out.println(wczytane.toCharArray()[i]);
                     }
                     centerPosition.setX(simulationMainPanel.getWidth()/2);
                     centerPosition.setY(simulationMainPanel.getHeight()/2);
@@ -539,10 +517,6 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 if(wczytane.contains("Księżyc"))
                 {
                     w = wczytane.split(" ");
-                    System.out.println(Integer.parseInt( liczba)-1);
-                    System.out.println(w[6]);
-                    System.out.println(w[8]);
-                    System.out.println(w[4]);
                     planetArrayList.get(Integer.parseInt( liczba)-1)
                             .addMoon(
                                     Integer.parseInt(w[6]),

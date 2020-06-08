@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="project_java_planets:jar">
+    <output-path>$PROJECT_DIR$/../compilationsProjectJavaPlanets/artifacts/project_java_planets_jar</output-path>
+    <root id="archive" name="project_java_planets.jar">
+      <element id="module-output" name="project_java_planets" />
+    </root>
+  </artifact>
+</component>

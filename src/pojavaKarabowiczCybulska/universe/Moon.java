@@ -18,7 +18,7 @@ public class Moon extends CelestialBodyOrbit
         this.mass = mass;
         this.orbitRadius = orbitRadius;
         this.orbitPeriod = orbitTime;
-        this.position = new CelestialBodyPosition(orbitCentre.getX(),orbitCentre.getY()+this.orbitRadius);
+        this.position = new CelestialBodyPosition( orbitCentre.getX()+this.orbitRadius,orbitCentre.getY()+this.orbitRadius);
         this.angularSpeed = Math.sqrt( (6.67*pow(10,-14)*planetMass) / pow(this.orbitRadius,3) ) ;
     }
     public void setOrbitCentre(CelestialBodyPosition orbitCentre) { this.orbitCentre = orbitCentre;}
@@ -36,16 +36,19 @@ public class Moon extends CelestialBodyOrbit
 
     public void updatePosition(CelestialBodyPosition planetPosittion)
     {
+        this.orbitCentre.setX( planetPosittion.getX() );
+        this.orbitCentre.setY( planetPosittion.getY() );
 
-        this.orbitAngle += this.angularSpeed;
+        this.orbitAngle += 0.01;
 
-        if(this.orbitAngle > Math.PI * 2) {
+        if(this.orbitAngle > Math.PI * 2)
+        {
             this.orbitAngle %= Math.PI * 2;
             updateOrbits();
         }
         // Nowe zmienne x, y
-        this.position.setX( (int)((Math.cos(this.orbitAngle) * this.orbitRadius) + planetPosittion.getX()) );
-        this.position.setY( (int)((Math.sin(this.orbitAngle) * this.orbitRadius) + planetPosittion.getY()) );
+        this.position.setX( (int)((Math.cos(this.orbitAngle) * this.orbitRadius) + orbitCentre.getX()));
+        this.position.setY( (int)((Math.sin(this.orbitAngle) * this.orbitRadius) + orbitCentre.getY()));
 
     }
 

@@ -40,7 +40,6 @@ public class SimulationMainPanel extends JPanel implements ActionListener
     {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-
         if(GuiPanel.sun != null)
         {
             g2d.setColor(GuiPanel.sun.getColor());
@@ -49,6 +48,7 @@ public class SimulationMainPanel extends JPanel implements ActionListener
 
         for (Planet planet: planetArrayList)
         {
+            planet.updatePosition();
             g2d.setColor(planet.getColor());
             planet.paint(g2d);
 
@@ -75,11 +75,11 @@ public class SimulationMainPanel extends JPanel implements ActionListener
 
                 for (Planet planet : planetArrayList)
                 {
-                    planet.updatePosition();
+                    //planet.updatePosition();
                     repaint();
                 }
             }
-        },0,25, TimeUnit.MILLISECONDS);
+        },5,1, TimeUnit.SECONDS);
     }
 
     //Rozpoczęcie animacji

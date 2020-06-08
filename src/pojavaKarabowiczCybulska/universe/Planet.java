@@ -17,7 +17,7 @@ public class Planet extends CelestialBodyOrbit
 
     public void addMoon(int orbitRadius, double orbitTime, Color color, double mass, int size )
     {
-        Moon m = new Moon( this.orbitCentre, orbitRadius, orbitTime, color, mass, this.mass, size) ;
+        Moon m = new Moon( this.position, orbitRadius, orbitTime, color, mass, this.mass, size) ;
         System.out.println("Moons"+size );
         moons.add(m);
     }
@@ -49,7 +49,7 @@ public class Planet extends CelestialBodyOrbit
     public void updatePosition()
     {
 
-        this.orbitAngle += this.angularSpeed;
+        this.orbitAngle += 0.005;
 
         if(this.orbitAngle > Math.PI * 2)
         {
@@ -60,7 +60,7 @@ public class Planet extends CelestialBodyOrbit
         this.position.setX((int)((Math.cos(this.orbitAngle) * this.orbitRadius) + this.orbitCentre.getX()));
         this.position.setY((int)((Math.sin(this.orbitAngle) * this.orbitRadius) + this.orbitCentre.getY()));
 
-        for(int i=0;i<moons.size()-1;i++) { moons.get(i).updatePosition(this.position); }
+        for(int i=0;i<moons.size();i++) { moons.get(i).updatePosition(this.position); }
     }
 
     public void updateSpeed(double sunMass){ this.angularSpeed = Math.sqrt( (6.67*pow(10,-14)*sunMass) / pow(this.orbitRadius,3) ) ; }

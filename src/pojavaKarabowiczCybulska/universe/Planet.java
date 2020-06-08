@@ -22,13 +22,13 @@ public class Planet extends CelestialBodyOrbit
         moons.add(m);
     }
 
-    public Planet(CelestialBodyPosition orbitCentre, int orbitRadius, double orbitTime, Color colour, double mass, double sunMass, int size)
+    public Planet(CelestialBodyPosition orbitCentre, int orbitRadius, double orbitTime, Color colour, double mass, double sunMass)
     {
         super();
         moons = new ArrayList<>();
         this.colour = colour;
-        this.size = size;
         this.mass = mass;
+        setSize();
         this.orbitCentre = orbitCentre; //położenie srodka
         this.orbitRadius = orbitRadius; //promien
         this.orbitPeriod = orbitTime;//
@@ -82,6 +82,30 @@ public class Planet extends CelestialBodyOrbit
     {
         g.setColor(this.colour);
         g.fillOval(position.getX(), position.getY(), size(), size());
+    }
+
+    private void setSize() //Karabowicz
+    {
+        if(mass <= 1)
+        {
+            size = 10;
+        }
+        else if(1 < mass && mass <= 100)
+        {
+            size = 15;
+        }
+        else if(100 < mass && mass <= 1000)
+        {
+            size = 20;
+        }
+        else if(1000 < mass && mass <= 10000)
+        {
+            size = 25;
+        }
+        else if(10000 < mass)
+        {
+            size = 30;
+        }
     }
 
 }

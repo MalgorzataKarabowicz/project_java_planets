@@ -7,10 +7,9 @@ import pojavaKarabowiczCybulska.universe.Sun;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.ScheduledExecutorService;
 
 import static java.lang.Math.pow;
@@ -400,7 +399,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         }
     };
 
-    public static void clean()
+    public static void clean() //Cybulska
     {
         for(int i=0; i<planetArrayList.size()-1; i++)
         {
@@ -439,14 +438,14 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
 
         for(int i=0; i<planetArrayList.size(); i++)
         {
-                textToWrite = textToWrite + "Planeta "+(i+1)+"   masa: "+planetArrayList.get(i).getMass()+" promien: "+planetArrayList.get(i).getOrbitRadius() + "\n";
+                textToWrite = textToWrite + "Planeta "+(i+1)+"   masa: "+planetArrayList.get(i).getMass()+" promien: "+planetArrayList.get(i).getOrbitRadius() +" kolor: "+planetArrayList.get(i).getColor().getRGB()+ "\n";
             if(planetArrayList.get(i).moons != null)
             {
                 //coś nie działa z zapisywaniem tej części
                 for(int j=0; j<planetArrayList.get(i).moons.size(); j++)
                 {
                     textToWrite = textToWrite + "Księżyc: "+(j+1)+"  masa: "+planetArrayList.get(i).moons.get(j).getMass()+
-                            " promien: "+planetArrayList.get(i).moons.get(j).getOrbitRadius() + "\n";
+                            " promien: "+(int)planetArrayList.get(i).moons.get(j).getOrbitRadius()  +" kolor: "+planetArrayList.get(i).getColor().getRGB()+ "\n";
                 }
             }
 
@@ -482,6 +481,83 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
             bw.close();
         }
         catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void openFile()
+    {
+        String fileName;
+
+        //wybieranie pliku do otwarcia
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Wybierz plik");
+        int returnVal = fileChooser.showDialog(null, "Wybierz");
+
+        if (returnVal == JFileChooser.APPROVE_OPTION)
+        {
+            fileName = String.valueOf(fileChooser.getSelectedFile().toPath());
+        }
+        else
+        {
+            fileName = "Open command cancelled by user." ;
+        }
+
+        FileReader fileReader ;
+        String wczytane="";
+
+        try
+        {
+            Random random = new Random();
+            clean();
+            fileReader = new FileReader(fileName);
+            BufferedReader br = new BufferedReader(fileReader);
+            String masa="", liczba="";
+            String[] w;
+            while( (wczytane = br.readLine() ) != null)
+            {
+                if(wczytane.contains("Sun"))
+                {
+                    System.out.println(wczytane.length());
+                    for(int i=10; i<wczytane.length(); i++)
+                    {
+                        masa+=wczytane.toCharArray()[i];
+                        //System.out.println(wczytane.toCharArray()[i]);
+                    }
+                    centerPosition.setX(simulationMainPanel.getWidth()/2);
+                    centerPosition.setY(simulationMainPanel.getHeight()/2);
+                    sun = new Sun(centerPosition,Color.YELLOW,Double.parseDouble(masa));
+                }
+                if(wczytane.contains("Planeta"))
+                {
+                    w = wczytane.split(" ");
+                    System.out.println(w[1]);
+                    liczba = w[1];
+                    if(sun == null) { planetArrayList.add(new Planet(centerPosition,Integer.parseInt(w[7]),3000,new Color(Integer.parseInt(w[9])),Double.parseDouble(w[5]),1)); }
+                    else { planetArrayList.add(new Planet(centerPosition,Integer.parseInt(w[7]),3000,new Color(Integer.parseInt(w[9])),Double.parseDouble(w[5]),sun.getMass())); }
+                }
+                if(wczytane.contains("Księżyc"))
+                {
+                    w = wczytane.split(" ");
+                    System.out.println(Integer.parseInt( liczba)-1);
+                    System.out.println(w[6]);
+                    System.out.println(w[8]);
+                    System.out.println(w[4]);
+                    planetArrayList.get(Integer.parseInt( liczba)-1)
+                            .addMoon(
+                                    Integer.parseInt(w[6]),
+                                    3000,
+                                    new Color(Integer.parseInt(w[8])),
+                                    Double.parseDouble(w[4]),
+                                    5);
+                }
+                System.out.println( wczytane);
+
+            }
+            br.close();
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }

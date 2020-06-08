@@ -12,7 +12,7 @@ public class DropDownMenu extends JMenuBar
         public void actionPerformed(ActionEvent e)
         {
             if(e.getSource()==menuSaveProject) {GuiPanel.saveFile(); }
-            if(e.getSource()==menuOpenProject) { }
+            if(e.getSource()==menuOpenProject) {GuiPanel.openFile(); }
             if(e.getSource()==menuCleanProject) {GuiPanel.clean(); }
             if(e.getSource()==menuNewProject)
             {

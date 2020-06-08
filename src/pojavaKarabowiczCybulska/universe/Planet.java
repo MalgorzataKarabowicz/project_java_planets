@@ -1,5 +1,6 @@
 package pojavaKarabowiczCybulska.universe;
 
+import pojavaKarabowiczCybulska.gui.GuiPanel;
 import pojavaKarabowiczCybulska.universe.CelestialBodyOrbit;
 import pojavaKarabowiczCybulska.universe.CelestialBodyPosition;
 
@@ -82,6 +83,11 @@ public class Planet extends CelestialBodyOrbit
     {
         g.setColor(this.colour);
         g.fillOval(position.getX(), position.getY(), size(), size());
+    }
+
+    public void paintOrbit(Graphics g)
+    {
+        g.drawOval(GuiPanel.sun.position.getX() + size/2 - orbitRadius, GuiPanel.sun.position.getY() +size/2 - orbitRadius, 2*orbitRadius, 2*orbitRadius);
     }
 
     private void setSize() //Karabowicz

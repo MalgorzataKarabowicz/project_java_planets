@@ -45,6 +45,9 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
 
     static String textToWrite = "";
 
+    public static boolean drawOrbits;
+
+
     public GuiPanel() //Karabowicz
     {
         choosenObjectColor = Color.YELLOW;
@@ -155,7 +158,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         backgroundColorChooser.addActionListener(backgroundColorListener);
         objectTypeChooser.addActionListener(objectTypeChooserListener);
         createObjectButton.addActionListener(createObjectButtonListener);
-        //drawOrbitsButton.addActionListener(drawOrbitsButtonListener);
+        drawOrbitsButton.addActionListener(drawOrbitsButtonListener);
         onOfButton.addItemListener(onOfItemListener);
         simulationMainPanel.addMouseListener(mouseClickListener);
     }
@@ -186,6 +189,14 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 simulationMainPanel.move();
                 System.out.println("Deselected");
             }
+        }
+    };
+
+    ActionListener drawOrbitsButtonListener = new ActionListener()  //Karabowicz
+    {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            drawOrbits = true;
         }
     };
 

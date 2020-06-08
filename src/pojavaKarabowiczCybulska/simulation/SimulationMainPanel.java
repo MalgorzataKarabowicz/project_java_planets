@@ -59,6 +59,22 @@ public class SimulationMainPanel extends JPanel implements ActionListener
             }
         }
 
+        if(GuiPanel.drawOrbits == true)
+        {
+            g2d.setColor(Color.WHITE);
+
+            for (Planet planet: planetArrayList)
+            {
+                planet.paintOrbit(g2d);
+
+
+                /*for (Moon moon: planet.moons)
+                {
+                    g2d.setColor( moon.getColor() );
+                    moon.paint(g2d);
+                }*/
+            }
+        }
     }
 
 

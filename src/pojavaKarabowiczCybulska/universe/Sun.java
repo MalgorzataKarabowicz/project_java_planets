@@ -51,6 +51,6 @@ public class Sun extends CelestialBodyOrbit //Cybulska
     public void paint(Graphics g)
     {
         g.getColor();
-        g.fillOval(position.getX(), position.getY(), size(), size());
+        g.fillOval(position.getX() - size/4, position.getY() - size/4, size(), size());
     }
 }

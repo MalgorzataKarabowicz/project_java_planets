@@ -64,9 +64,6 @@ public class SimulationMainPanel extends JPanel implements ActionListener
 
     public void move()
     {
-        /**
-         * nie wiem czy to ma tutaj jakikolwiek sens -> raczej nie
-         */
         ogarniaczWatkow.scheduleAtFixedRate(new Runnable()
         {
             @Override

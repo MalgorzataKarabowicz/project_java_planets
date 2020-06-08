@@ -163,7 +163,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        simulationMainPanel.move(); //nie wiem czy to powinno być tutaj ??????????????
+        simulationMainPanel.move();
     }
 
     public void start() {simulationMainPanel.start();}
@@ -325,8 +325,8 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                 }
                 if(choosenObject=="Planet")
                 {
-                    if(sun == null) { planetArrayList.add(new Planet(centerPosition,(int)radius,3000,choosenObjectColor,mass,1,20)); }
-                    else { planetArrayList.add(new Planet(centerPosition,(int)radius,3000,choosenObjectColor,mass,sun.getMass(),20)); }
+                    if(sun == null) { planetArrayList.add(new Planet(centerPosition,(int)radius,3000,choosenObjectColor,mass,1)); }
+                    else { planetArrayList.add(new Planet(centerPosition,(int)radius,3000,choosenObjectColor,mass,sun.getMass())); }
                     simulationMainPanel.repaint();
                     System.out.println("Pomyślnie dodano planete!!!");
                 }
@@ -357,7 +357,7 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
                     {
                         centerPosition.setX(simulationMainPanel.getWidth()/2);
                         centerPosition.setY(simulationMainPanel.getHeight()/2);
-                        sun = new Sun(centerPosition,choosenObjectColor,mass,20);
+                        sun = new Sun(centerPosition,choosenObjectColor,mass);
                         simulationMainPanel.repaint();
                         System.out.println("Pomyślnie dodano slonce!!!");
                     }
@@ -420,18 +420,16 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
 
     }
 
-    //Karabowicz
-    private static void setTextToWrite()
+
+    private static void setTextToWrite()   //Karabowicz
     {
         textToWrite = "";
         textToWrite = textToWrite + "Sun " + "mass: " + sun.getMass() + "\n";
 
         for(int i=0; i<planetArrayList.size(); i++)
         {
-            if(planetArrayList.get(i).moons == null){
                 textToWrite = textToWrite + "Planeta "+(i+1)+"   masa: "+planetArrayList.get(i).getMass()+" promien: "+planetArrayList.get(i).getOrbitRadius() + "\n";
-            }
-            else
+            if(planetArrayList.get(i).moons != null)
             {
                 //coś nie działa z zapisywaniem tej części
                 for(int j=0; j<planetArrayList.get(i).moons.size(); j++)
@@ -444,8 +442,8 @@ public class GuiPanel extends JPanel implements ActionListener //Karabowicz
         }
     }
 
-    //Karabowicz
-    public static void saveFile()
+
+    public static void saveFile()  //Karabowicz
     {
         setTextToWrite();
 

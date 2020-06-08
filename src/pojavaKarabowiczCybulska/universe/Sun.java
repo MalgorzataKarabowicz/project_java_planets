@@ -5,12 +5,12 @@ import java.awt.*;
 
 public class Sun extends CelestialBodyOrbit //Cybulska
 {
-    public Sun (CelestialBodyPosition position, Color colour, double mass, int size)
+    public Sun (CelestialBodyPosition position, Color colour, double mass)
     {
         super();
         this.colour = colour;
-        this.size = size;
         this.mass = mass;
+        setSize();
         this.position = position;
         this.angularSpeed = 0;
     }
@@ -25,9 +25,25 @@ public class Sun extends CelestialBodyOrbit //Cybulska
 
     private void setSize() //Karabowicz
     {
-        if(mass < 1)
+        if(mass <= 1)
         {
-
+            size = 10;
+        }
+        else if(1 < mass && mass <= 100)
+        {
+            size = 15;
+        }
+        else if(100 < mass && mass <= 1000)
+        {
+            size = 20;
+        }
+        else if(1000 < mass && mass <= 10000)
+        {
+            size = 25;
+        }
+        else if(10000 < mass)
+        {
+            size = 30;
         }
     }
 
